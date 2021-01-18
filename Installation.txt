@@ -1,0 +1,44 @@
+################################################## Pre-Requisite (ALL NODES) ##################################################
+https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#letting-iptables-see-bridged-traffic
+Step 1: (Verify the MAC address and product_uuid are unique for every node)
+  ip link or ifconfig -a
+  sudo cat /sys/class/dmi/id/product_uuid
+
+Step 2: (Letting iptables see bridged traffic)
+  sudo modprobe br_netfilter
+
+cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+br_netfilter
+EOF
+
+cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+sudo sysctl --system
+
+Step 3: (Disable swap space)
+sudo swapoff -a  
+
+################################################## INSTALL CONTAINER RUNTIME (ALL NODES) ##################################################
+https://kubernetes.io/docs/setup/production-environment/container-runtimes/
+Step 3: Install docker my following steps mentioned in above link
+
+################################################## INSTALL KUBEADM (ALL NODES) ##################################################
+https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#letting-iptables-see-bridged-traffic
+Step 4: (Installing kubeadm, kubelet and kubectl)
+sudo apt-get update && sudo apt-get install -y apt-transport-https curl
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
+deb https://apt.kubernetes.io/ kubernetes-xenial main
+EOF
+sudo apt-get update
+sudo apt-get install -y kubelet kubeadm kubectl
+sudo apt-mark hold kubelet kubeadm kubectl
+
+################################################## INITIALIZE CLUSTER (MASTER ONLY) ##################################################
+https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network
+https://docs.projectcalico.org/getting-started/kubernetes/quickstart
+Step 5: (Initializing your control-plane node)
+sudo kubeadm init --pod-network-cidr=192.168.0.0/16 --apiserver-advertise-address=<master-node-ip(192.168.1.179)>
+
