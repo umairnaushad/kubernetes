@@ -41,4 +41,25 @@ https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-clu
 https://docs.projectcalico.org/getting-started/kubernetes/quickstart
 Step 5: (Initializing your control-plane node)
 sudo kubeadm init --pod-network-cidr=192.168.0.0/16 --apiserver-advertise-address=<master-node-ip(192.168.1.179)>
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+kubeadm join 192.168.1.179:6443 --token mrj3e7.j05v2eorcauzdcpd \
+    --discovery-token-ca-cert-hash sha256:ab77eb651306ade6c087cc420f0c7ce51ad120394a48b67a6b34df0b8c5f7c4d 
+
+Step 6: (Installing a Pod network add-on)
+curl https://docs.projectcalico.org/manifests/calico.yaml -O
+kubectl apply -f calico.yaml
+kubectl get pods --all-namespaces
+
+Step 7: (Control plane node isolation)
+kubectl taint nodes --all node-role.kubernetes.io/master-
+
+################################################## JOIN NODE (WORKER ONLY) ##################################################
+https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network
+Step 8: 
+sudo su -
+kubeadm join 192.168.1.179:6443 --token mrj3e7.j05v2eorcauzdcpd \
+    --discovery-token-ca-cert-hash sha256:ab77eb651306ade6c087cc420f0c7ce51ad120394a48b67a6b34df0b8c5f7c4d 
 
