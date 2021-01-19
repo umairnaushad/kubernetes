@@ -76,3 +76,17 @@ kubectl label node node01 node-role.kubernetes.io/worker=worker
 https://upcloud.com/community/tutorials/deploy-kubernetes-dashboard/
 https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
 
+################################################## AUTO COMPLETE (MASTER ONLY) ##################################################
+https://www.liquidweb.com/kb/how-to-install-kubernetes-on-ubuntu-macos-and-windows/
+On Worker node
+Step 11: (Copy admin.conf from master to worker node)
+scp master01@master01-virtualbox:/etc/kubernetes/admin.conf /etc/kubernetes/
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+source /usr/share/bash-completion/bash_completion
+
+echo 'source <(kubectl completion bash)' >>~/.bashrc
+kubectl completion bash >/etc/bash_completion.d/kubectl
+
+
