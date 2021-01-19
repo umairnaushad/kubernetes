@@ -58,8 +58,19 @@ Step 7: (Control plane node isolation)
 
 ################################################## JOIN NODE (WORKER ONLY) ##################################################
 https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network
-Step 8: 
+https://computingforgeeks.com/join-new-kubernetes-worker-node-to-existing-cluster/
+Step 8: (Get token form master)
+kubeadm token list
+sudo kubeadm token create // if expired
+openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //'
+kubectl cluster-info
+
+Step 9: (Join node)
 sudo su -
 kubeadm join 192.168.1.179:6443 --token mrj3e7.j05v2eorcauzdcpd \
-    --discovery-token-ca-cert-hash sha256:ab77eb651306ade6c087cc420f0c7ce51ad120394a48b67a6b34df0b8c5f7c4d 
+    --discovery-token-ca-cert-hash sha256:ab77eb651306ade6c087cc420f0c7ce51ad120394a48b67a6b34df0b8c5f7c4d
+
+################################################## INSTALL DASHBOARD (MASTER ONLY) ##################################################
+https://upcloud.com/community/tutorials/deploy-kubernetes-dashboard/
+https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
 
