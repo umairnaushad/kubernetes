@@ -69,6 +69,8 @@ Step 9: (Join node)
 sudo su -
 kubeadm join 192.168.1.179:6443 --token mrj3e7.j05v2eorcauzdcpd \
     --discovery-token-ca-cert-hash sha256:ab77eb651306ade6c087cc420f0c7ce51ad120394a48b67a6b34df0b8c5f7c4d
+Step 10: (Add label on worker)
+kubectl label node node01 node-role.kubernetes.io/worker=worker
 
 ################################################## INSTALL DASHBOARD (MASTER ONLY) ##################################################
 https://upcloud.com/community/tutorials/deploy-kubernetes-dashboard/
