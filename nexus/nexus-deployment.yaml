@@ -5,6 +5,9 @@ metadata:
   namespace: nexus
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+        app: nexus-server
   template:
     metadata:
       labels:
