@@ -1,38 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nexus
-  namespace: nexus
+ name: nexus-dep
+ namespace: devops
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-        app: nexus-server
-  template:
-    metadata:
-      labels:
-        app: nexus-server
-    spec:
-      containers:
-        - name: nexus
-          image: sonatype/nexus:latest
-          env:
-          - name: MAX_HEAP
-            value: "800m"
-          - name: MIN_HEAP
-            value: "300m"
-          resources:
-            limits:
-              memory: "1000Mi"
-              cpu: "1000m"
-            requests:
-              memory: "500Mi"
-              cpu: "500m"
-          ports:
-            - containerPort: 8081
-          volumeMounts:
-            - name: nexus-data
-              mountPath: /sonatype-work
-      volumes:
-        - name: nexus-data
-          emptyDir: {}
+ replicas: 1
+ selector:
+  matchLabels:
+   app: nexus-server
+ template:
+  metadata:
+   labels:
+    app: nexus-server
+  spec:
+   containers:
+   - name: nexus
+     image: sonatype/nexus3:3.25.0
+     resources: 
+      requests:
+       cpu: "500m"
+       memory: "1Gi"
+      limits:
+       cpu: "1000m"
+       memory: "2Gi"
+     volumeMounts:
+     - name: nexus-data
+       mountPath: /nexus-data
+   volumes:
+   - name: nexus-data
+ 
