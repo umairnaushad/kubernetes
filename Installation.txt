@@ -89,3 +89,13 @@ source /usr/share/bash-completion/bash_completion
 echo 'source <(kubectl completion bash)' >>~/.bashrc
 kubectl completion bash >/etc/bash_completion.d/kubectl
 source /usr/share/bash-completion/bash_completion
+
+################################################## UNINSTALL KUBERNETES ##################################################
+kubeadm reset
+sudo apt-get purge kubeadm kubectl kubelet kubernetes-cni kube*
+sudo apt-get autoremove
+sudo rm -rf ~/.kube
+
+################################################## SET DEFAULT NAMESPACE ##################################################
+kubectl config set-context --current --namespace=devops
+kubectl config view --minify | grep namespace:
