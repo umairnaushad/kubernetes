@@ -2,15 +2,15 @@ https://www.tecmint.com/install-nfs-server-on-ubuntu/
 ################################################## Installing and configuring NFS Server on Ubuntu ##################################################
 ################################################## Step 1: Install NFS Kernel Server in Ubuntu ##################################################
 sudo apt update
-sudo apt install nfs-kernel-server
+sudo apt install nfs-kernel-server -y
 
 ################################################## Step 2: Create an NFS Export Directory ##################################################
-sudo mkdir -p /mnt/nfs_share
-sudo chown -R nobody:nogroup /mnt/nfs_share/
-sudo chmod 777 /mnt/nfs_share/
+sudo mkdir -p /mnt/nfs-share
+sudo chown -R nobody:nogroup /mnt/nfs-share/
+sudo chmod 777 /mnt/nfs-share/
 
 ################################################## Step 3: Grant NFS Share Access to Client Systems ##################################################
-sudo vim /etc/exports
+sudo nano /etc/exports
 /mnt/nfs-share  10.152.21.0/24(rw,sync,no_subtree_check)
 rw: Stands for Read/Write.
 sync: Requires changes to be written to the disk before they are applied.
@@ -35,11 +35,11 @@ sudo mkdir -p /mnt/nfs-clientshare
 
 ################################################## Step 3: Mount NFS Share on Client System ##################################################
 ifconfig
-sudo mount 192.168.43.234:/mnt/nfs_share  /mnt/nfs_clientshare
-ls -l /mnt/nfs_clientshare/
+sudo mount 192.168.43.234:/mnt/nfs-share  /mnt/nfs-clientshare
+ls -l /mnt/nfs-clientshare/
 
 ################################################## Step 4: Testing the NFS Share on Client System ##################################################
-cd /mnt/nfs_share/
+cd /mnt/nfs-clientshare/
 touch file1.txt file2.txt file3.txt
 
 ##################################################  ##################################################
