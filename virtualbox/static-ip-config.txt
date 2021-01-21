@@ -1,0 +1,15 @@
+Step 1: 
+File -> Host Network Manager -> Properties
+ip addess = 10.152.21.250
+netmask   = 255.255.255.0
+
+Step 2:
+Settings -> Network -> Adapter 1 -> Host Only Adapter
+Settings -> Network -> Adapter 2 -> Bridged Adapter
+
+Step 3:
+Login to VM and add following in file /etc/network/interfaces
+auto enp0s3
+iface enp0s3 inet static
+address 10.152.21.250
+netmask 255.255.255.0
