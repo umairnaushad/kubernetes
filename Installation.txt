@@ -49,7 +49,7 @@ kubeadm join 192.168.1.179:6443 --token mrj3e7.j05v2eorcauzdcpd \
     --discovery-token-ca-cert-hash sha256:ab77eb651306ade6c087cc420f0c7ce51ad120394a48b67a6b34df0b8c5f7c4d 
 
 Step 6: (Installing a Pod network add-on)
-curl https://docs.projectcalico.org/manifests/calico.yaml -O
+sudo curl https://docs.projectcalico.org/manifests/calico.yaml -O
 kubectl apply -f calico.yaml
 kubectl get pods --all-namespaces
 
@@ -60,8 +60,8 @@ Step 7: (Control plane node isolation)
 https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network
 https://computingforgeeks.com/join-new-kubernetes-worker-node-to-existing-cluster/
 Step 8: (Get token form master)
+//sudo kubeadm token create --ttl 0 // if expired
 kubeadm token list
-sudo kubeadm token create // if expired
 openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //'
 kubectl cluster-info
 
