@@ -53,6 +53,9 @@ sudo curl https://docs.projectcalico.org/manifests/calico.yaml -O
 kubectl apply -f calico.yaml
 kubectl get pods --all-namespaces
 
+OR
+https://www.weave.works/docs/net/latest/kubernetes/kube-addon/
+
 Step 7: (Control plane node isolation)
 #kubectl taint nodes --all node-role.kubernetes.io/master-
 
