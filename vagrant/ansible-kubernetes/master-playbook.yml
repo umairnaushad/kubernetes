@@ -12,3 +12,7 @@
       - apt-transport-https
       - curl
       - nfs-common
+
+  - name: Disable swap space
+    command: swapoff
+    when: ansible_swaptotal_mb > 0
