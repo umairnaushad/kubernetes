@@ -4,11 +4,9 @@
   tasks:
   - name: Install Packages
     apt:
-      name: "{{packages}}"
-      state: present
+      state: latest
       update_cache: yes
-    vars:
-      packages:
+      pkg:
       - apt-transport-https
       - curl
       - nfs-common
