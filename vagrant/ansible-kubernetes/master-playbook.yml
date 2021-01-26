@@ -10,5 +10,5 @@
     vars:
       packages:
       - apt-transport-https
-      - ca-certificates
       - curl
+      - nfs-common

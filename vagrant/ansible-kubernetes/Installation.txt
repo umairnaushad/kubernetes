@@ -1,0 +1,10 @@
+https://kubernetes.io/blog/2019/03/15/kubernetes-setup-using-ansible-and-vagrant/
+################################################## To Execute Separately ##################################################
+Step 1: (Update VMs)
+Update VM IPs in host files
+
+Step 2: (Verify connectivity)
+ansible all -m ping
+
+Step 3: (Install )
+ansible-playbook master-playbook.yaml -i ./hosts
