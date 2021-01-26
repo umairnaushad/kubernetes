@@ -3,26 +3,39 @@
 
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
 ENV['VAGRANT_EXPERIMENTAL'] = 'disks'
+IMAGE_NAME = "bento/ubuntu-16.04"
+N = 1
 
 Vagrant.configure("2") do |config|
-  config.vm.define "ubuntu-01" do |vm1|
-    vm1.vm.hostname = "ubuntu-01"
-    vm1.vm.box = "generic/ubuntu1804"
-    vm1.vm.box_check_update = false
-    vm1.vm.network "private_network", ip: "192.168.10.100"
-    vm1.vm.network "public_network"
-    vm1.vm.disk :disk, size: "20GB", primary: true
-  
-    vm1.vm.provider "virtualbox" do |vb|
-      vb.name = "ubuntu-01"
-      vb.gui = false  
-      vb.memory = "2048"
-      vb.cpus = "2"
-    end
+  #config.ssh.insert_key = false
 
-    vm1.vm.provision "shell", inline: <<-SHELL
-      #apt-get update
-      ifconfig
-    SHELL
+  config.vm.provider "virtualbox" do |vb|
+    #vb.name = "ubuntu-01"
+    #vb.gui = false  
+    vb.memory = "2048"
+    vb.cpus = "2"
+  end
+  
+  config.vm.define "k8s-master" do |master|
+    master.vm.hostname = "k8s-master"
+    master.vm.box = IMAGE_NAME
+    master.vm.box_check_update = false
+    master.vm.network "private_network", ip: "192.168.10.10"
+    master.vm.network "public_network"
+    #master.vm.provision "ansible" do |ansible|
+    #  ansible.playbook = "kubernetes-setup/master-playbook.yml"
+    #  ansible.extra_vars = {
+    #      node_ip: "192.168.10.10",
+    #  }
+    #end
+  end
+
+  (1..N).each do |i|
+    config.vm.define "node-#{i}" do |node|
+      node.vm.hostname = "node-#{i}"
+      node.vm.box = IMAGE_NAME
+      node.vm.network "private_network", ip: "192.168.10.#{i+10}"
+      node.vm.disk :disk, size: "20GB", primary: true
+    end  
   end
 end
