@@ -51,3 +51,8 @@
       - containerd.io
     notify:
       - docker status
+
+  - name: Add vagrant user to docker group
+    user:
+      name: vagrant
+      group: docker
