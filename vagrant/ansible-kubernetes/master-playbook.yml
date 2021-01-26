@@ -12,6 +12,8 @@
       - apt-transport-https
       - ca-certificates
       - curl
+      - software-properties-common
+      - gnupg2
       - nfs-common
 
   - name: Disable swap space
@@ -26,3 +28,26 @@
     with_items:
       - swap
       - none
+
+  - name: Add apt signing key for docker
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+  - name: Add apt reposiotry for docker
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable
+      state: present
+
+  - name: Install docker
+    apt:
+      name: "{{ packages }}"
+      state: present
+      update_cache: yes
+    vars:
+      packages:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+    notify:
+      - docker status
