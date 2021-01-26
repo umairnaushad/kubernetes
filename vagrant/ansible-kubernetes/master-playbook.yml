@@ -14,5 +14,5 @@
       - nfs-common
 
   - name: Disable swap space
-    command: swapoff
+    command: swapoff -a
     when: ansible_swaptotal_mb > 0
