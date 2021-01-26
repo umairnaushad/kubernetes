@@ -48,10 +48,14 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 kubeadm join 192.168.1.179:6443 --token mrj3e7.j05v2eorcauzdcpd \
     --discovery-token-ca-cert-hash sha256:ab77eb651306ade6c087cc420f0c7ce51ad120394a48b67a6b34df0b8c5f7c4d 
 
-Step 6: (Installing a Pod network add-on)
+Step 6: (Installing a Pod network add-on. Either install calico or weave)
 sudo curl https://docs.projectcalico.org/manifests/calico.yaml -O
 kubectl apply -f calico.yaml
 kubectl get pods --all-namespaces
+
+OR
+https://www.weave.works/docs/net/latest/kubernetes/kube-addon/
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
 
 Step 7: (Control plane node isolation)
 #kubectl taint nodes --all node-role.kubernetes.io/master-
