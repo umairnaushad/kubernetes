@@ -2,10 +2,15 @@
 - hosts: all
   become: true
   tasks:
+  - name: Update packages
+    command: "{{ item }}"
+    with_items:
+    - sudo rm -vf /var/lib/apt/lists/*
+    - sudo apt-get update
+
   - name: Install Packages
     apt:
       name: "{{ packages }}"
-      update_cache: yes
     vars:
       packages:
       - apt-transport-https
@@ -35,11 +40,15 @@
   - name: Add apt reposiotry for docker
     apt_repository:
       repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
+
+  - name: Update packages
+    command: "{{ item }}"
+    with_items:
+    - sudo apt-get update
       
   - name: Install docker
     apt:
       name: "{{ packages }}"
-      update_cache: yes
     vars:
       packages:
       - docker-ce
