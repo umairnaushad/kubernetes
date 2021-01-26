@@ -3,11 +3,12 @@
 
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
 ENV['VAGRANT_EXPERIMENTAL'] = 'disks'
-IMAGE_NAME = "bento/ubuntu-16.04"
+# IMAGE_NAME = "bento/ubuntu-16.04"
+IMAGE_NAME = "generic/ubuntu1804"
 N = 1
 
 Vagrant.configure("2") do |config|
-  #config.ssh.insert_key = false
+  config.ssh.insert_key = false
 
   config.vm.provider "virtualbox" do |vb|
     #vb.name = "ubuntu-01"
@@ -23,7 +24,7 @@ Vagrant.configure("2") do |config|
     master.vm.network "private_network", ip: "192.168.10.10"
     master.vm.network "public_network"
     #master.vm.provision "ansible" do |ansible|
-    #  ansible.playbook = "kubernetes-setup/master-playbook.yml"
+    #  ansible.playbook = "ansible-kubernetes/master-playbook.yml"
     #  ansible.extra_vars = {
     #      node_ip: "192.168.10.10",
     #  }
@@ -35,7 +36,13 @@ Vagrant.configure("2") do |config|
       node.vm.hostname = "node-#{i}"
       node.vm.box = IMAGE_NAME
       node.vm.network "private_network", ip: "192.168.10.#{i+10}"
-      node.vm.disk :disk, size: "20GB", primary: true
+      #node.vm.disk :disk, size: "20GB", primary: true
+      #node.vm.provision "ansible" do |ansible|
+      #  ansible.playbook = "ansible-kubernetes/node-playbook.yml"
+      #  ansible.extra_vars = {
+      #      node_ip: "192.168.10.#{i + 10}",
+      #  }
+      #end
     end  
   end
 end
