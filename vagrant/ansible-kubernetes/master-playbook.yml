@@ -87,10 +87,10 @@
         - kubeadm 
         - kubectl
 
-  - name: Configure node ip
-    lineinfile:
-      path: /etc/default/kubelet
-      line: KUBELET_EXTRA_ARGS=--node-ip={{ node_ip }}
+#  - name: Configure node ip
+#    lineinfile:
+#      path: /etc/default/kubelet
+#      line: KUBELET_EXTRA_ARGS=--node-ip={{ node_ip }}
 
   - name: Restart kubelet
     service:
@@ -100,3 +100,10 @@
 
   - name: Initialize the Kubernetes cluster using kubeadm
     command: kubeadm init --apiserver-advertise-address="{{ node_ip }}" --apiserver-cert-extra-sans="{{ node_ip }}"  --node-name k8s-master --pod-network-cidr={{ pod_network_cidr }}
+
+  - name: Setup kubeconfig for vagrant user
+    command: "{{ item }}"
+    with_items:
+     - mkdir -p /home/vagrant/.kube
+     - cp -i /etc/kubernetes/admin.conf /home/vagrant/.kube/config
+     - chown vagrant:vagrant /home/vagrant/.kube/config
