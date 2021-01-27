@@ -13,7 +13,7 @@
   - name: Update packages
     command: "{{ item }}"
     with_items:
-    - sudo rm -vf /var/lib/apt/lists/*
+    #- sudo rm -vf /var/lib/apt/lists/*
     - sudo apt update
 
   - name: Install Packages
