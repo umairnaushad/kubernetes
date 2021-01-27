@@ -5,7 +5,104 @@
     pod_network_cidr: 192.168.50.0/24
   become: true
   tasks:
-  - name: Add a line to a file if the file does not exist, without passing regexp
+  - name: Update /etc/resolv.conf for corporate network
     ansible.builtin.lineinfile:
       path: /etc/resolv.conf
       line: nameserver 8.8.8.8
+
+  - name: Remove swapfile from /etc/fstab
+    mount:
+      name: "{{ item }}"
+      fstype: swap
+      state: absent
+    with_items:
+      - swap
+      - none
+      
+  - name: Update packages
+    command: "{{ item }}"
+    with_items:
+    - sudo rm -vf /var/lib/apt/lists/*
+    - sudo apt-get update
+
+  - name: Install Packages
+    apt:
+      name: "{{ packages }}"
+    vars:
+      packages:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+      - gnupg2
+      - nfs-common
+
+  - name: Disable swap space
+    command: swapoff -a
+    when: ansible_swaptotal_mb > 0
+
+  - name: Remove swapfile from /etc/fstab
+    mount:
+      name: "{{ item }}"
+      fstype: swap
+      state: absent
+    with_items:
+      - swap
+      - none
+
+  - name: Docker apt signing key and apt repository
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+    #command: "{{ item }}"
+    #with_items:
+    #- sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg
+    #- sudo add-apt-repository deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable
+    #- sudo apt-get update
+    retries: 5
+      
+  - name: Docker apt reposiotry
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable
+
+  - name: Update packages
+    command: "{{ item }}"
+    with_items:
+    - sudo apt-get update
+      
+  - name: Install docker
+    apt:
+      name: "{{ packages }}"
+    vars:
+      packages:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+    notify:
+      - docker status
+
+  - name: Add vagrant user to docker group
+    user:
+      name: vagrant
+      group: docker
+
+  - name: Kubernetes apt signing key
+    apt_key:
+      url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+      state: present
+
+  - name: Kubernetes apt repository
+    apt_repository:
+      repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
+      state: present
+      filename: kubernetes.list
+
+  - name: Install Kubernetes
+    apt: 
+      name: "{{ packages }}"
+      state: present
+      update_cache: yes
+    vars:
+      packages:
+        - kubelet 
+        - kubeadm 
+        - kubectl
