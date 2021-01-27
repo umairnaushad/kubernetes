@@ -12,3 +12,6 @@ ansible-playbook master-playbook.yaml -i ./hosts
 
 ################################################## Extra Commands ##################################################
 ssh-keygen -f "/home/umair/.ssh/known_hosts" -R "192.168.10.11"
+
+################################################## TO Execute the playbook ##################################################
+ansible-playbook playbook-master.yaml -i ./hosts -vvv
