@@ -13,9 +13,10 @@
     #command: "{{ item }}"
     #with_items:
     command:
-      - echo "A"
-      - echo "B"
-      - echo "C"
+      name:
+        - echo "A"
+        - echo "B"
+        - echo "C"
 #     - mkdir -p /home/vagrant/.kube
 #     - cp -i /etc/kubernetes/admin.conf /home/vagrant/.kube/config
 #     - chown vagrant:vagrant /home/vagrant/.kube/config
