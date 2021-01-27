@@ -11,16 +11,17 @@
       line: nameserver 8.8.8.8
 
   - name: Update packages
-    command: "{{ item }}"
-    with_items:
-    #- sudo rm -vf /var/lib/apt/lists/*
-    - sudo apt update
+    apt:
+      update_cache: yes
+    #command: "{{ item }}"
+    #with_items:
+    ##- sudo rm -vf /var/lib/apt/lists/*
+    #- sudo apt update
 
   - name: Install Packages
     apt:
-      name: "{{ packages }}"
-    vars:
-      packages:
+      state: present
+      name:
         - apt-transport-https
         - ca-certificates
         - curl
@@ -59,9 +60,8 @@
 
   - name: Install docker
     apt:
-      name: "{{ packages }}"
-    vars:
-      packages:
+      state: present
+      name: 
         - docker-ce
         - docker-ce-cli
         - containerd.io
@@ -86,18 +86,16 @@
 
   - name: Install Kubernetes
     apt: 
-      name: "{{ packages }}"
       state: present
       update_cache: yes
-    vars:
-      packages:
+      name: 
         - kubelet 
         - kubeadm 
         - kubectl
 
-  - name: Print installed version
-    shell: "{{ item }}"
-    with_items:
-      - kubectl version --short
-      - docker version
-    ignore_errors: yes
+#  - name: Print installed version
+#    shell: "{{ item }}"
+#    with_items:
+#      - kubectl version --short
+#      - docker version
+#    ignore_errors: yes
