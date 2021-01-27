@@ -46,7 +46,7 @@
     #  url: https://download.docker.com/linux/ubuntu/gpg
     command: "{{ item }}"
     with_items:
-    - sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg
+    - sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key --keyring /etc/apt/trusted.gpg.d/docker.gpg add -
     - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
     - sudo apt-get update
     retries: 3

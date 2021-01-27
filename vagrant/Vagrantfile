@@ -5,7 +5,8 @@ ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
 ENV['VAGRANT_EXPERIMENTAL'] = 'disks'
 # IMAGE_NAME = "bento/ubuntu-18.04"
 # IMAGE_NAME = "bento/ubuntu-16.04"
-IMAGE_NAME = "generic/ubuntu1804"
+# IMAGE_NAME = "generic/ubuntu1804"
+IMAGE_NAME = "bento/ubuntu-20.04"
 MASTER_COUNT = 1
 NODE_COUNT = 0
 
