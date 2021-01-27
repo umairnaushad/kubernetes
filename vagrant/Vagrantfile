@@ -3,40 +3,44 @@
 
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
 ENV['VAGRANT_EXPERIMENTAL'] = 'disks'
-IMAGE_NAME = "bento/ubuntu-18.04"
+# IMAGE_NAME = "bento/ubuntu-18.04"
 # IMAGE_NAME = "bento/ubuntu-16.04"
-# IMAGE_NAME = "generic/ubuntu1804"
-N = 1
+IMAGE_NAME = "generic/ubuntu1804"
+MASTER_COUNT = 1
+NODE_COUNT = 0
 
 Vagrant.configure("2") do |config|
   config.ssh.insert_key = false
 
-  config.vm.provider "virtualbox" do |vb|
-    #vb.name = "ubuntu-01"
-    #vb.gui = false  
-    vb.memory = "2048"
-    vb.cpus = "2"
-  end
-  
-  config.vm.define "k8s-master" do |master|
-    master.vm.hostname = "k8s-master"
-    master.vm.box = IMAGE_NAME
-    master.vm.box_check_update = false
-    master.vm.network "private_network", ip: "192.168.10.10"
-    master.vm.network "public_network"
-    #master.vm.provision "ansible" do |ansible|
-    #  ansible.playbook = "ansible-kubernetes/master-playbook.yml"
-    #  ansible.extra_vars = {
-    #      node_ip: "192.168.10.10",
-    #  }
-    #end
+  (1..MASTER_COUNT).each do |i|
+    config.vm.provider "virtualbox" do |vb|
+      vb.name = "master-0#{i}"
+      #vb.gui = false  
+      vb.memory = "2048"
+      vb.cpus = "2"
+    end
+    
+    config.vm.define "master-0#{i}" do |master|
+      master.vm.hostname = "master-0#{i}"
+      master.vm.box = IMAGE_NAME
+      master.vm.box_check_update = false
+      master.vm.network "private_network", ip: "192.168.10.#{i+10}"
+      master.vm.network "public_network"
+      #master.vm.provision "ansible" do |ansible|
+      #  ansible.playbook = "ansible-kubernetes/master-playbook.yml"
+      #  ansible.extra_vars = {
+      #      node_ip: "192.168.10.10",
+      #  }
+      #end
+    end
   end
 
-  (1..N).each do |i|
-    config.vm.define "node-#{i}" do |node|
-      node.vm.hostname = "node-#{i}"
-      node.vm.box = IMAGE_NAME
-      node.vm.network "private_network", ip: "192.168.10.#{i+10}"
+#  (1..NODE_COUNT).each do |i|
+#    config.vm.define "node-#{i}" do |node|
+#      node.vm.hostname = "node-#{i}"
+#      node.vm.box = IMAGE_NAME
+#      node.vm.network "private_network", ip: "192.168.10.#{i+20}"
+#      node.vm.network "public_network"
       #node.vm.disk :disk, size: "20GB", primary: true
       #node.vm.provision "ansible" do |ansible|
       #  ansible.playbook = "ansible-kubernetes/node-playbook.yml"
@@ -44,6 +48,6 @@ Vagrant.configure("2") do |config|
       #      node_ip: "192.168.10.#{i + 10}",
       #  }
       #end
-    end  
-  end
+#    end
+#  end
 end
