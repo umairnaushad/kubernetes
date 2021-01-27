@@ -1,2 +1,2 @@
 [master-node]
-192.168.10.10 ansible_ssh_pass=vagrant ansible_ssh_user=vagrant
+192.168.10.11 ansible_ssh_pass=vagrant ansible_ssh_user=vagrant
