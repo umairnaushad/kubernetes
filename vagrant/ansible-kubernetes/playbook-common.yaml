@@ -93,9 +93,9 @@
         - kubeadm 
         - kubectl
 
-#  - name: Print installed version
-#    shell: "{{ item }}"
-#    with_items:
-#      - kubectl version --short
-#      - docker version
-#    ignore_errors: yes
+  - name: Print installed version
+    shell: "{{ item }}"
+    with_items:
+      - kubeadm version
+      - docker version
+    ignore_errors: yes
