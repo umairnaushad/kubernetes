@@ -1,5 +1,6 @@
 ---
 - hosts: all
+  become: true
   tasks:
   - name: Update /etc/resolv.conf for corporate network
     ansible.builtin.lineinfile:
@@ -9,8 +10,8 @@
   - name: Update packages
     command: "{{ item }}"
     with_items:
-    #- sudo rm -vf /var/lib/apt/lists/*
-    - sudo apt update
+    #- rm -vf /var/lib/apt/lists/*
+    - apt update
 
   - name: Install Packages
     apt:
@@ -43,9 +44,9 @@
       state: present
     #command: "{{ item }}"
     #with_items:
-    #- sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key --keyring /etc/apt/trusted.gpg.d/docker.gpg add -
-    #- sudo add-apt-repository deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release | lower }} stable
-    #- sudo apt update
+    #- curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key --keyring /etc/apt/trusted.gpg.d/docker.gpg add -
+    #- add-apt-repository deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release | lower }} stable
+    #- apt update
     retries: 3
           
   - name: Docker apt reposiotry
