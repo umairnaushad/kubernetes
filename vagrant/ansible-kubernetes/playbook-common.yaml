@@ -62,8 +62,6 @@
         - docker-ce
         - docker-ce-cli
         - containerd.io
-    notify:
-      - docker version
 
   - name: Add vagrant user to docker group
     user:
