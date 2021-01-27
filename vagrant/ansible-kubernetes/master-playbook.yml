@@ -10,15 +10,6 @@
       path: /etc/resolv.conf
       line: nameserver 8.8.8.8
 
-  - name: Remove swapfile from /etc/fstab
-    mount:
-      name: "{{ item }}"
-      fstype: swap
-      state: absent
-    with_items:
-      - swap
-      - none
-      
   - name: Update packages
     command: "{{ item }}"
     with_items:
@@ -64,7 +55,7 @@
     apt_repository:
       repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable
 
-  - name: Update packages
+  - name: Update packages after docker repository addition
     command: "{{ item }}"
     with_items:
     - sudo apt-get update
@@ -106,3 +97,5 @@
         - kubelet 
         - kubeadm 
         - kubectl
+    notify:
+      - kubectl version --short

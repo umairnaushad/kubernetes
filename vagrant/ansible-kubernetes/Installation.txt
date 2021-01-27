@@ -8,3 +8,7 @@ ansible all -m ping
 
 Step 3: (Install )
 ansible-playbook master-playbook.yaml -i ./hosts
+
+
+################################################## Extra Commands ##################################################
+ssh-keygen -f "/home/umair/.ssh/known_hosts" -R "192.168.10.11"
