@@ -104,3 +104,4 @@
     with_items:
       - kubectl version --short
       - docker version
+    ignore_errors: yes
