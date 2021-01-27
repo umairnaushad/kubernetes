@@ -51,9 +51,9 @@
     #- sudo apt-get update
     retries: 5
       
-  - name: Docker apt reposiotry
-    apt_repository:
-      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable
+  #- name: Docker apt reposiotry
+  #  apt_repository:
+  #    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable
 
   - name: Docker apt reposiotry abd update packages
     command: "{{ item }}"
