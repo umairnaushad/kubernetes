@@ -1,0 +1,9 @@
+---
+- hosts: worker-node
+  tasks:
+
+  - name: Copy the join command to server location
+    copy: src=join-command dest=/opt/join-command.sh mode=0777
+
+  - name: Join the node to cluster
+    command: sh /opt/join-command.sh
