@@ -99,6 +99,6 @@
   - name: Print installed version
     shell: "{{ item }}"
     with_items:
-      - kubectl version --short
+      - kubectl version
       - docker version
     ignore_errors: yes
