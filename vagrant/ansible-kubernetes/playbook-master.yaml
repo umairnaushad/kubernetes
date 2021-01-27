@@ -3,7 +3,7 @@
   vars:
     MASTER_IP: 192.168.10.11
     POD_CIDR: 192.168.50.0/24
-    DATA_PATH: /opt/kubernetes/
+    DATA_PATH: /opt/kubernetes
   become: true
   tasks:
   
