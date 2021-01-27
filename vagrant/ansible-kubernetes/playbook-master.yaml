@@ -31,6 +31,6 @@
   - name: Install dashboard
     become: false
     command: |
-      - kubectl apply -f "{{ DATA_PATH }}"dashboard.yaml
-      - kubectl apply -f "{{ DATA_PATH }}"dashboard-admin.yaml
-      - kubectl apply -f "{{ DATA_PATH }}"dashboard-read-only.yaml
+      kubectl apply -f "{{ DATA_PATH }}"dashboard.yaml
+      kubectl apply -f "{{ DATA_PATH }}"dashboard-admin.yaml
+      kubectl apply -f "{{ DATA_PATH }}"dashboard-read-only.yaml
