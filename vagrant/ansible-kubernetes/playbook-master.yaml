@@ -6,14 +6,22 @@
   become: true
   tasks:
   
-  - name: Initialize the Kubernetes cluster using kubeadm
-    command: kubeadm init --apiserver-advertise-address="{{ master_node_ip }}" --apiserver-cert-extra-sans="{{ master_node_ip }}"  --node-name k8s-master --pod-network-cidr={{ pod_network_cidr }}
+#  - name: Initialize the Kubernetes cluster using kubeadm
+#    command: kubeadm init --apiserver-advertise-address="{{ master_node_ip }}" --apiserver-cert-extra-sans="{{ master_node_ip }}"  --node-name k8s-master --pod-network-cidr={{ pod_network_cidr }}
 
   - name: Setup kubeconfig for vagrant user
     shell: |
       mkdir -p /home/vagrant/.kube
       cp -i /etc/kubernetes/admin.conf /home/vagrant/.kube/config
       chown vagrant:vagrant /home/vagrant/.kube/config
+
+  - name: Copy yaml files
+    copy: src={{ item.src }} dest={{ item.dest }}
+    with_items:
+      - { src: 'calico.yaml', dest: '/opt/kubernetes/' }
+      - { src: 'dashboard.yaml', dest: '/opt/kubernetes/' }
+      - { src: 'dashboard-admin.yaml', dest: '/opt/kubernetes/' }
+      - { src: 'dashboard-read-only.yaml', dest: '/opt/kubernetes/' }
 
   - name: Install calico pod network
     become: false
