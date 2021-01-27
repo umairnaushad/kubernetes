@@ -99,8 +99,8 @@
     notify:
       - kubectl version
 
-  - name: do something if version is 1.13.0
+  - name: Print installed version
     shell: "{{ item }}"
     with_items:
       - kubectl version --short
-      - docker info
+      - docker version
