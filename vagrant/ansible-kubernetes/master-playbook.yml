@@ -55,11 +55,12 @@
     apt_repository:
       repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable
 
-  - name: Update packages after docker repository addition
+  - name: Docker apt reposiotry abd update packages
     command: "{{ item }}"
     with_items:
+    - sudo add-apt-repository deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable
     - sudo apt-get update
-      
+
   - name: Install docker
     apt:
       name: "{{ packages }}"
