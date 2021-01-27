@@ -41,11 +41,7 @@
       - swap
       - none
 
-  - name: Find distribution
-    command: lsb_release -sc
-    register: result
-
-  - name: Docker apt signing key and apt repository
+    - name: Docker apt signing key and apt repository
     #apt_key:
     #  url: https://download.docker.com/linux/ubuntu/gpg
     command: "{{ item }}"
