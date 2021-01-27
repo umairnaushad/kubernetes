@@ -21,12 +21,12 @@
       name: "{{ packages }}"
     vars:
       packages:
-      - apt-transport-https
-      - ca-certificates
-      - curl
-      - software-properties-common
-      - gnupg2
-      - nfs-common
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - software-properties-common
+        - gnupg2
+        - nfs-common
 
   - name: Disable swap space
     command: swapoff -a
@@ -62,9 +62,9 @@
       name: "{{ packages }}"
     vars:
       packages:
-      - docker-ce
-      - docker-ce-cli
-      - containerd.io
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
     notify:
       - docker version
 
@@ -97,4 +97,10 @@
         - kubeadm 
         - kubectl
     notify:
+      - kubectl version
+
+  - name: do something if version is 1.13.0
+    shell: "{{ item }}"
+    with_items:
       - kubectl version --short
+      - docker info
