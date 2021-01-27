@@ -41,14 +41,17 @@
       - swap
       - none
 
+  - name: Find distribution
+    command: lsb_release -sc
+    register: result
+
   - name: Docker apt signing key and apt repository
     #apt_key:
     #  url: https://download.docker.com/linux/ubuntu/gpg
     command: "{{ item }}"
     with_items:
-    - echo {{ ansible_distribution_release | lower }}
     - sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key --keyring /etc/apt/trusted.gpg.d/docker.gpg add -
-    - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release | lower }} stable"
+    - sudo add-apt-repository deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release | lower }} stable
     - sudo apt update
     retries: 3
       
