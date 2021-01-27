@@ -7,5 +7,5 @@
   tasks:
   - name: Add a line to a file if the file does not exist, without passing regexp
     ansible.builtin.lineinfile:
-    path: /etc/resolv.conf
-    line: nameserver 8.8.8.8
+      path: /etc/resolv.conf
+      line: nameserver 8.8.8.8
