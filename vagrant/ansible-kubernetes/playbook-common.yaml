@@ -99,13 +99,3 @@
       - kubeadm version
       - docker version
     ignore_errors: yes
-
-  - name: Setup kubeconfig for vagrant user
-    shell: |
-      mkdir -p $HOME/.kube
-      cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-      chown $(id -u):$(id -g) $HOME/.kube/config
-      source /usr/share/bash-completion/bash_completion
-      echo 'source <(kubectl completion bash)' >>~/.bashrc
-      kubectl completion bash >/etc/bash_completion.d/kubectl
-      source /usr/share/bash-completion/bash_completion

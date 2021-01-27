@@ -10,12 +10,6 @@
 #  - name: Initialize the Kubernetes cluster using kubeadm
 #    command: kubeadm init --apiserver-advertise-address="{{ MASTER_IP }}" --apiserver-cert-extra-sans="{{ MASTER_IP }}"  --node-name k8s-master --pod-network-cidr={{ POD_CIDR }}
 
-#  - name: Setup kubeconfig for vagrant user
-#    shell: |
-#      mkdir -p $HOME/vagrant/.kube
-#      cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-#      chown vagrant:vagrant $HOME/.kube/config
-
   - name: Copy yaml files
     copy: src={{ item.src }} dest={{ item.dest }}
     with_items:
@@ -44,6 +38,16 @@
     local_action: |
       copy content="{{ shared_data.stdout_lines[0] }}" dest="./hared-command"
       copy content="/etc/kubernetes/admin.conf" dest="./shared-data"
+
+  - name: Setup auto completion bash
+    shell: |
+      mkdir -p $HOME/.kube
+      cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+      chown $(id -u):$(id -g) $HOME/.kube/config
+      source /usr/share/bash-completion/bash_completion
+      echo 'source <(kubectl completion bash)' >>~/.bashrc
+      kubectl completion bash >/etc/bash_completion.d/kubectl
+      source /usr/share/bash-completion/bash_completion
 
 #  handlers:
 #    - name: docker status
