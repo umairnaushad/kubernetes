@@ -37,9 +37,13 @@
       - none
 
   - name: Docker apt signing key
-    apt_key:
-      url: https://download.docker.com/linux/ubuntu/gpg
-    retries: 3
+    #apt_key:
+    #  url: https://download.docker.com/linux/ubuntu/gpg
+    command: "{{ item }}"
+    with_items:
+    - sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg
+    #- sudo apt-get update
+    retries: 5
       
   - name: Docker apt reposiotry
     apt_repository:
