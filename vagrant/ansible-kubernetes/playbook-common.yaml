@@ -23,6 +23,7 @@
         - ca-certificates
         - curl
         - software-properties-common
+        - bash-completion
         - gnupg2
         - nfs-common
 
