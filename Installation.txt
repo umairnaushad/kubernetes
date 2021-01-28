@@ -79,6 +79,8 @@ kubectl label node node01 node-role.kubernetes.io/worker=worker
 ################################################## INSTALL DASHBOARD (MASTER ONLY) ##################################################
 https://upcloud.com/community/tutorials/deploy-kubernetes-dashboard/
 https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
+kubectl proxy
+http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
 
 ################################################## AUTO COMPLETE (MASTER ONLY) ##################################################
 https://www.liquidweb.com/kb/how-to-install-kubernetes-on-ubuntu-macos-and-windows/
