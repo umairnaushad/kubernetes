@@ -19,6 +19,8 @@
     file:
       path: $HOME/.kube
       state: directory
+      owner: $(id -u)
+      group: $(id -g)
 #    shell:
 #      cmd: |
         
