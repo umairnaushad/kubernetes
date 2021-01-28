@@ -7,8 +7,14 @@
   become: true
   tasks:
   
-  - name: Initialize the Kubernetes cluster using kubeadm
-    command: kubeadm init --apiserver-advertise-address="{{ MASTER_IP }}" --apiserver-cert-extra-sans="{{ MASTER_IP }}"  --node-name k8s-master --pod-network-cidr={{ POD_CIDR }}
+#  - name: Initialize the Kubernetes cluster using kubeadm
+#    command: kubeadm init --apiserver-advertise-address="{{ MASTER_IP }}" --apiserver-cert-extra-sans="{{ MASTER_IP }}"  --node-name k8s-master --pod-network-cidr={{ POD_CIDR }}
+
+  - name: Initialize kubectl
+    shell: |
+      mkdir -p $HOME/.kube
+      cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+      chown $(id -u):$(id -g) $HOME/.kube/config
 
   - name: Copy yaml files
     copy: src={{ item.src }} dest={{ item.dest }}
@@ -38,13 +44,9 @@
 
   - name: Setup auto completion bash
     shell: |
-      mkdir -p $HOME/.kube
-      cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-      chown $(id -u):$(id -g) $HOME/.kube/config
-#      source /usr/share/bash-completion/bash_completion
-#      echo 'source <(kubectl completion bash)' >>~/.bashrc
-#      kubectl completion bash >/etc/bash_completion.d/kubectl
-#      source /usr/share/bash-completion/bash_completion
+      echo 'source <(kubectl completion bash)' >>~/.bashrc
+      kubectl completion bash >/etc/bash_completion.d/kubectl
+      source /usr/share/bash-completion/bash_completion
 
 #  handlers:
 #    - name: docker status
