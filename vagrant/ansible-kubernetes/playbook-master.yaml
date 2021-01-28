@@ -11,10 +11,14 @@
 #    command: kubeadm init --apiserver-advertise-address="{{ MASTER_IP }}" --apiserver-cert-extra-sans="{{ MASTER_IP }}"  --node-name k8s-master --pod-network-cidr={{ POD_CIDR }}
 
   - name: Initialize kubectl command
-    shell:
-      cmd: |
-        echo "Hello World"
-        mkdir -p $HOME/.kube
+    command: "{{ item }}"
+    with_items:
+      - echo "Hello World"
+      - mkdir -p $HOME/.kube
+#    shell:
+#      cmd: |
+        
+        
 #        #cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 #        #chown $(id -u):$(id -g) $HOME/.kube/config
 
