@@ -55,7 +55,7 @@
       sudo kubectl completion bash >/etc/bash_completion.d/kubectl
 
   - name: Setup auto completion - step 2
-    shell: source $HOME/.bashrc && /usr/share/bash-completion/bash_completion
+    shell: source $HOME/.bashrc && source /usr/share/bash-completion/bash_completion
     args:
       executable: /bin/bash
 
