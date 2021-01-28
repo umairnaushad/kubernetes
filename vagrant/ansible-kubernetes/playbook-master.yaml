@@ -21,17 +21,17 @@
     become: yes
     become_user: vagrant
 
-#  - name: Copy yaml files
-#    copy: src={{ item.src }} dest={{ item.dest }}
-#    with_items:
-#      - { src: 'calico.yaml', dest: "{{ DATA_PATH }}" }
-#      - { src: 'dashboard.yaml', dest: "{{ DATA_PATH }}" }
-#      - { src: 'dashboard-admin.yaml', dest: "{{ DATA_PATH }}" }
-#      - { src: 'dashboard-read-only.yaml', dest: "{{ DATA_PATH }}" }
+  - name: Copy yaml files
+    copy: src={{ item.src }} dest={{ item.dest }}
+    with_items:
+      - { src: 'calico.yaml', dest: "{{ DATA_PATH }}" }
+      - { src: 'dashboard.yaml', dest: "{{ DATA_PATH }}" }
+      - { src: 'dashboard-admin.yaml', dest: "{{ DATA_PATH }}" }
+      - { src: 'dashboard-read-only.yaml', dest: "{{ DATA_PATH }}" }
 
-#  - name: Install calico pod network
-#    become: false
-#    command: kubectl apply -f "{{ DATA_PATH }}"calico.yaml
+  - name: Install calico pod network
+    become: false
+    command: kubectl apply -f "{{ DATA_PATH }}"calico.yaml
 
 #  - name: Install dashboard
 #    become: false
