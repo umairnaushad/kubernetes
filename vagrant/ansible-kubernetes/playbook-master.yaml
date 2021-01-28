@@ -13,11 +13,13 @@
   - name: Initialize kubectl command
     command: mkdir -p $HOME/.kube
     become: yes
-    become_user: {{ ansible_user_id }}
+    become_user: vagrant
 
-#  - name: Initialize kubectl command
-#    shell:
-#      cmd: |
+  - name: Initialize kubectl command
+    shell:
+      cmd: |
+        echo "Hello World"
+        echo $HOME
 #        cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 #        chown $(id -u):$(id -g) $HOME/.kube/config
 #    shell:
