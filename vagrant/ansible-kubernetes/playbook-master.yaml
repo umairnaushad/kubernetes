@@ -19,8 +19,6 @@
     file:
       path: $HOME/.kube
       state: directory
-      owner: vagrant
-      group: vagrant
     become: yes
     become_user: vagrant
 #    shell:
