@@ -8,3 +8,13 @@
 
   - name: Join the node to cluster
     command: sh /tmp/join-command.sh
+
+  - name: Setup auto completion - step 1
+    shell: |
+      echo "source <(kubectl completion bash)" >>~/.bashrc
+      sudo kubectl completion bash >/etc/bash_completion.d/kubectl
+
+  - name: Setup auto completion - step 2
+    shell: source $HOME/.bashrc && source /usr/share/bash-completion/bash_completion
+    args:
+      executable: /bin/bash
