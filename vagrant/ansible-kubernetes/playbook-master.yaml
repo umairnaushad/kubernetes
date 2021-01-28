@@ -13,7 +13,6 @@
   - name: Initialize kubectl command
     command: "{{ item }}"
     with_items:
-      - echo "Hello World"
       - mkdir -p $HOME/.kube
 #    shell:
 #      cmd: |
@@ -22,13 +21,13 @@
 #        #cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 #        #chown $(id -u):$(id -g) $HOME/.kube/config
 
-  - name: Copy yaml files
-    copy: src={{ item.src }} dest={{ item.dest }}
-    with_items:
-      - { src: 'calico.yaml', dest: "{{ DATA_PATH }}" }
-      - { src: 'dashboard.yaml', dest: "{{ DATA_PATH }}" }
-      - { src: 'dashboard-admin.yaml', dest: "{{ DATA_PATH }}" }
-      - { src: 'dashboard-read-only.yaml', dest: "{{ DATA_PATH }}" }
+#  - name: Copy yaml files
+#    copy: src={{ item.src }} dest={{ item.dest }}
+#    with_items:
+#      - { src: 'calico.yaml', dest: "{{ DATA_PATH }}" }
+#      - { src: 'dashboard.yaml', dest: "{{ DATA_PATH }}" }
+#      - { src: 'dashboard-admin.yaml', dest: "{{ DATA_PATH }}" }
+#      - { src: 'dashboard-read-only.yaml', dest: "{{ DATA_PATH }}" }
 
 #  - name: Install calico pod network
 #    become: false
