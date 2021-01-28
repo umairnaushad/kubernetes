@@ -53,7 +53,7 @@
     shell: |
       echo "source <(kubectl completion bash)" >>~/.bashrc
       sudo kubectl completion bash >/etc/bash_completion.d/kubectl
-      source /usr/share/bash-completion/bash_completion
+#      source /usr/share/bash-completion/bash_completion
 
 #  handlers:
 #    - name: docker status
