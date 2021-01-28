@@ -14,8 +14,6 @@
     shell: |
       sudo rm -rf $HOME/.kube
       mkdir -p $HOME/.kube
-      echo "Hello World"
-      echo $HOME
       sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
       sudo chown $(id -u):$(id -g) $HOME/.kube/config
     become: yes
@@ -41,15 +39,15 @@
         -f "{{ DATA_PATH }}"dashboard-admin.yaml 
         -f "{{ DATA_PATH }}"dashboard-read-only.yaml
 
-#  - name: Generate join command
-#    command: kubeadm token create --print-join-command
-#    register: shared_data
+  - name: Generate join command
+    command: kubeadm token create --print-join-command
+    register: shared_data
 
-#  - name: Copy join command to shared data
-#    local_action: copy content="{{ shared_data.stdout_lines[0] }}" dest="./shared-data"
+  - name: Copy join command to shared data
+    local_action: copy content="{{ shared_data.stdout_lines[0] }}" dest="./shared-data"
       
-#  - name: Copy admin.conf to shared data
-#    local_action: copy content="/etc/kubernetes/admin.conf" dest="./shared-data"
+  - name: Copy admin.conf to shared data
+    local_action: copy content="/etc/kubernetes/admin.conf" dest="./shared-data"
 
 #  - name: Setup auto completion bash
 #    shell: |
