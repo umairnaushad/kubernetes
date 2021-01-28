@@ -33,11 +33,11 @@
     become: false
     command: kubectl apply -f "{{ DATA_PATH }}"calico.yaml
 
-#  - name: Install dashboard
-#    become: false
-#    shell:
-#      cmd: |
-#        kubectl apply -f "{{ DATA_PATH }}"dashboard.yaml -f "{{ DATA_PATH }}"dashboard-admin.yaml -f "{{ DATA_PATH }}"dashboard-read-only.yaml
+  - name: Install dashboard
+    become: false
+    shell:
+      cmd: |
+        kubectl apply -f "{{ DATA_PATH }}"dashboard.yaml -f "{{ DATA_PATH }}"dashboard-admin.yaml -f "{{ DATA_PATH }}"dashboard-read-only.yaml
 
 #  - name: Generate join command
 #    command: kubeadm token create --print-join-command
