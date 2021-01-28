@@ -10,10 +10,15 @@
 #  - name: Initialize the Kubernetes cluster using kubeadm
 #    command: kubeadm init --apiserver-advertise-address="{{ MASTER_IP }}" --apiserver-cert-extra-sans="{{ MASTER_IP }}"  --node-name k8s-master --pod-network-cidr={{ POD_CIDR }}
 
-  - name: Initialize kubectl command
-    command: "{{ item }}"
-    with_items:
-      - mkdir -p $HOME/.kube
+#  - name: Initialize kubectl command
+#    command: "{{ item }}"
+#    with_items:
+#      - mkdir -p $HOME/.kube
+
+  - name: Creates $HOME/.kube directory
+    file:
+      path: $HOME/.kube
+      state: directory
 #    shell:
 #      cmd: |
         
