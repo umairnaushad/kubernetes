@@ -39,15 +39,19 @@
         -f "{{ DATA_PATH }}"dashboard-admin.yaml 
         -f "{{ DATA_PATH }}"dashboard-read-only.yaml
 
-  - name: Generate shared data
+  - name: Generate shared data 1
     command: kubeadm token create --print-join-command
     register: shared_data
 
   - name: Copy join command to shared data
     local_action: copy content="{{ shared_data.stdout_lines[0] }}" dest="./shared-data1"
 
+  - name: Generate shared data 2
+    command: cat /etc/kubernetes/admin.conf
+    register: shared_data
+
   - name: Copy admin.conf to shared data
-    local_action: copy content=/etc/kubernetes/admin.conf dest="./shared-data2"
+    local_action: copy content=shared_data dest="./shared-data2"
 
   - name: Setup auto completion - step 1
     shell: |
