@@ -11,10 +11,11 @@
 #    command: kubeadm init --apiserver-advertise-address="{{ MASTER_IP }}" --apiserver-cert-extra-sans="{{ MASTER_IP }}"  --node-name k8s-master --pod-network-cidr={{ POD_CIDR }}
 
   - name: Initialize kubectl
-    shell: |
-      mkdir -p $HOME/.kube
-      cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-      chown $(id -u):$(id -g) $HOME/.kube/config
+    command: "{{ item }}"
+    with_items:
+      - mkdir -p $HOME/.kube
+      - cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+      - chown $(id -u):$(id -g) $HOME/.kube/config
 
   - name: Copy yaml files
     copy: src={{ item.src }} dest={{ item.dest }}
