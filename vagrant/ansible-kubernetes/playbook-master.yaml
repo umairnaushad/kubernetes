@@ -49,11 +49,11 @@
   - name: Copy admin.conf to shared data
     local_action: copy content="/etc/kubernetes/admin.conf" dest="./shared-data"
 
-#  - name: Setup auto completion bash
-#    shell: |
-#      echo 'source <(kubectl completion bash)' >>~/.bashrc
-#      kubectl completion bash >/etc/bash_completion.d/kubectl
-#      source /usr/share/bash-completion/bash_completion
+  - name: Setup auto completion bash
+    shell: |
+      echo 'source <(kubectl completion bash)' >>~/.bashrc
+      kubectl completion bash >/etc/bash_completion.d/kubectl
+      source /usr/share/bash-completion/bash_completion
 
 #  handlers:
 #    - name: docker status
