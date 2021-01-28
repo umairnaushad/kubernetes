@@ -7,8 +7,8 @@
   become: true
   tasks:
   
-#  - name: Initialize the Kubernetes cluster using kubeadm
-#    command: kubeadm init --apiserver-advertise-address="{{ MASTER_IP }}" --apiserver-cert-extra-sans="{{ MASTER_IP }}"  --node-name k8s-master --pod-network-cidr={{ POD_CIDR }}
+  - name: Initialize the Kubernetes cluster using kubeadm
+    command: kubeadm init --apiserver-advertise-address="{{ MASTER_IP }}" --apiserver-cert-extra-sans="{{ MASTER_IP }}"  --node-name k8s-master --pod-network-cidr={{ POD_CIDR }}
 
   - name: Initialize kubectl command
     shell: |
@@ -16,6 +16,7 @@
       mkdir -p $HOME/.kube
       sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
       sudo chown $(id -u):$(id -g) $HOME/.kube/config
+      source /usr/share/bash-completion/bash_completion
     become: yes
     become_user: vagrant
 
