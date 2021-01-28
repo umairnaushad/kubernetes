@@ -7,8 +7,8 @@
   become: true
   tasks:
   
-  - name: Initialize the Kubernetes cluster using kubeadm
-    command: kubeadm init --apiserver-advertise-address="{{ MASTER_IP }}" --apiserver-cert-extra-sans="{{ MASTER_IP }}"  --node-name k8s-master --pod-network-cidr={{ POD_CIDR }}
+#  - name: Initialize the Kubernetes cluster using kubeadm
+#    command: kubeadm init --apiserver-advertise-address="{{ MASTER_IP }}" --apiserver-cert-extra-sans="{{ MASTER_IP }}"  --node-name k8s-master --pod-network-cidr={{ POD_CIDR }}
 
   - name: Initialize kubectl command
     shell: |
@@ -16,7 +16,6 @@
       mkdir -p $HOME/.kube
       sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
       sudo chown $(id -u):$(id -g) $HOME/.kube/config
-      source /usr/share/bash-completion/bash_completion
     become: yes
     become_user: vagrant
 
@@ -54,7 +53,12 @@
     shell: |
       echo "source <(kubectl completion bash)" >>~/.bashrc
       sudo kubectl completion bash >/etc/bash_completion.d/kubectl
-      source /usr/share/bash-completion/bash_completion
+
+  - name: source bashrc
+    sudo: no   
+    shell: source /home/username/.bashrc && /usr/share/bash-completion/bash_completion
+    args:
+      executable: /bin/bash
 
 #  handlers:
 #    - name: docker status
