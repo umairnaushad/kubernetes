@@ -16,11 +16,12 @@
       echo "Hello World"
       echo $HOME
       sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+      sudo chown $(id -u):$(id -g) $HOME/.kube/config
     become: yes
     become_user: vagrant
 
 #        cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-#        chown $(id -u):$(id -g) $HOME/.kube/config
+#        
 #    shell:
 #      cmd: |
         
