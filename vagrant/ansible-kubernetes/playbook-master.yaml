@@ -13,7 +13,7 @@
   - name: Initialize kubectl command
     command: mkdir -p $HOME/.kube
     become: yes
-    become_user: vagrant
+    become_user: {{ ansible_user_id }}
 
 #  - name: Initialize kubectl command
 #    shell:
