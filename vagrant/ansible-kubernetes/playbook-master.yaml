@@ -52,8 +52,8 @@
   - name: Setup auto completion bash
     shell: |
       echo "source <(kubectl completion bash)" >>~/.bashrc
-#      kubectl completion bash >/etc/bash_completion.d/kubectl
-#      source /usr/share/bash-completion/bash_completion
+      kubectl completion bash >/etc/bash_completion.d/kubectl
+      source /usr/share/bash-completion/bash_completion
     become: yes
     become_user: vagrant
 
