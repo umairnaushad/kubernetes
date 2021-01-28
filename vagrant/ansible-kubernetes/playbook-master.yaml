@@ -48,10 +48,10 @@
 
   - name: Generate shared data 2
     command: cat /etc/kubernetes/admin.conf
-    register: shared_data
+    register: shared_data2
 
   - name: Copy admin.conf to shared data
-    local_action: copy content=shared_data dest="./shared-data2"
+    local_action: copy content="{{ shared_data2 }}" dest="./shared-data2"
 
   - name: Setup auto completion - step 1
     shell: |
