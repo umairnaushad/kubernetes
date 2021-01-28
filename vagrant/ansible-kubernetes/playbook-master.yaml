@@ -35,21 +35,22 @@
 
   - name: Install dashboard
     become: false
-    command:
+    shell:
       cmd: |
-        kubectl apply -f "{{ DATA_PATH }}"dashboard.yaml 
-        kubectl apply -f "{{ DATA_PATH }}"dashboard-admin.yaml 
-        kubectl apply -f "{{ DATA_PATH }}"dashboard-read-only.yaml
+        kubectl apply 
+        -f "{{ DATA_PATH }}"dashboard.yaml 
+        -f "{{ DATA_PATH }}"dashboard-admin.yaml 
+        -f "{{ DATA_PATH }}"dashboard-read-only.yaml
 
-  - name: Generate join command
-    command: kubeadm token create --print-join-command
-    register: shared_data
+#  - name: Generate join command
+#    command: kubeadm token create --print-join-command
+#    register: shared_data
 
-  - name: Copy join command to shared data
-    local_action: copy content="{{ shared_data.stdout_lines[0] }}" dest="./shared-data"
+#  - name: Copy join command to shared data
+#    local_action: copy content="{{ shared_data.stdout_lines[0] }}" dest="./shared-data"
       
-  - name: Copy admin.conf to shared data
-    local_action: copy content="/etc/kubernetes/admin.conf" dest="./shared-data"
+#  - name: Copy admin.conf to shared data
+#    local_action: copy content="/etc/kubernetes/admin.conf" dest="./shared-data"
 
 #  - name: Setup auto completion bash
 #    shell: |
