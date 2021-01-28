@@ -14,9 +14,9 @@
     shell:
       cmd: |
         echo "Hello World"
-        mkdir -p $HOME/.kube
-        cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-        chown $(id -u):$(id -g) $HOME/.kube/config
+#        #mkdir -p $HOME/.kube
+#        #cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+#        #chown $(id -u):$(id -g) $HOME/.kube/config
 
   - name: Copy yaml files
     copy: src={{ item.src }} dest={{ item.dest }}
@@ -26,31 +26,31 @@
       - { src: 'dashboard-admin.yaml', dest: "{{ DATA_PATH }}" }
       - { src: 'dashboard-read-only.yaml', dest: "{{ DATA_PATH }}" }
 
-  - name: Install calico pod network
-    become: false
-    command: kubectl apply -f "{{ DATA_PATH }}"calico.yaml
+#  - name: Install calico pod network
+#    become: false
+#    command: kubectl apply -f "{{ DATA_PATH }}"calico.yaml
 
-  - name: Install dashboard
-    become: false
-    shell:
-      cmd: |
-        kubectl apply -f "{{ DATA_PATH }}"dashboard.yaml -f "{{ DATA_PATH }}"dashboard-admin.yaml -f "{{ DATA_PATH }}"dashboard-read-only.yaml
+#  - name: Install dashboard
+#    become: false
+#    shell:
+#      cmd: |
+#        kubectl apply -f "{{ DATA_PATH }}"dashboard.yaml -f "{{ DATA_PATH }}"dashboard-admin.yaml -f "{{ DATA_PATH }}"dashboard-read-only.yaml
 
-  - name: Generate join command
-    command: kubeadm token create --print-join-command
-    register: shared_data
+#  - name: Generate join command
+#    command: kubeadm token create --print-join-command
+#    register: shared_data
 
-  - name: Copy join command to shared data
-    local_action: copy content="{{ shared_data.stdout_lines[0] }}" dest="./shared-data"
+#  - name: Copy join command to shared data
+#    local_action: copy content="{{ shared_data.stdout_lines[0] }}" dest="./shared-data"
       
-  - name: Copy admin.conf to shared data
-    local_action: copy content="/etc/kubernetes/admin.conf" dest="./shared-data"
+#  - name: Copy admin.conf to shared data
+#    local_action: copy content="/etc/kubernetes/admin.conf" dest="./shared-data"
 
-  - name: Setup auto completion bash
-    shell: |
-      echo 'source <(kubectl completion bash)' >>~/.bashrc
-      kubectl completion bash >/etc/bash_completion.d/kubectl
-      source /usr/share/bash-completion/bash_completion
+#  - name: Setup auto completion bash
+#    shell: |
+#      echo 'source <(kubectl completion bash)' >>~/.bashrc
+#      kubectl completion bash >/etc/bash_completion.d/kubectl
+#      source /usr/share/bash-completion/bash_completion
 
 #  handlers:
 #    - name: docker status
