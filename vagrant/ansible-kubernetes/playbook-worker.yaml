@@ -10,7 +10,9 @@
     copy: src=shared-data2 dest=/etc/kubernetes/admin.conf mode=0777
 
   - name: Join the node to cluster
-    command: sh /tmp/shared-data.sh
+    command: |
+      - kubeadm reset
+      - sh /tmp/shared-data.sh
 
   - name: Setup auto completion - step 1
     shell: |
