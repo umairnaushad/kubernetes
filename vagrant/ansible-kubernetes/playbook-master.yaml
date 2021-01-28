@@ -12,6 +12,7 @@
 
   - name: Initialize kubectl command
     shell: |
+      sudo rm -rf $HOME/.kube
       mkdir -p $HOME/.kube
       echo "Hello World"
       echo $HOME
