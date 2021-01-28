@@ -49,13 +49,13 @@
   - name: Copy admin.conf to shared data
     local_action: copy content="/etc/kubernetes/admin.conf" dest="./shared-data"
 
-  - name: Setup auto completion bash
+  - name: Setup auto completion - step 1
     shell: |
       echo "source <(kubectl completion bash)" >>~/.bashrc
       sudo kubectl completion bash >/etc/bash_completion.d/kubectl
 
-  - name: source bashrc
-    shell: source /home/username/.bashrc && /usr/share/bash-completion/bash_completion
+  - name: Setup auto completion - step 2
+    shell: source $HOME/.bashrc && /usr/share/bash-completion/bash_completion
     args:
       executable: /bin/bash
 
