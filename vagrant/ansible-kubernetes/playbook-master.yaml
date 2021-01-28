@@ -14,14 +14,15 @@
     command: "{{ item }}"
     with_items:
       - mkdir -p $HOME/.kube
+      - cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
     become: yes
     become_user: vagrant
 
-  - name: Initialize kubectl command
-    shell:
-      cmd: |
-        cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-        chown $(id -u):$(id -g) $HOME/.kube/config
+#  - name: Initialize kubectl command
+#    shell:
+#      cmd: |
+#        cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+#        chown $(id -u):$(id -g) $HOME/.kube/config
 #    shell:
 #      cmd: |
         
