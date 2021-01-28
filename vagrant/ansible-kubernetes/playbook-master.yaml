@@ -11,17 +11,14 @@
 #    command: kubeadm init --apiserver-advertise-address="{{ MASTER_IP }}" --apiserver-cert-extra-sans="{{ MASTER_IP }}"  --node-name k8s-master --pod-network-cidr={{ POD_CIDR }}
 
   - name: Initialize kubectl command
-    command: mkdir -p $HOME/.kube
+    command: |
+      mkdir -p $HOME/.kube
+      echo "Hello World"
+      echo $HOME
+      sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
     become: yes
     become_user: vagrant
 
-  - name: Initialize kubectl command
-    shell:
-      cmd: |
-        echo "Hello World"
-        echo $HOME
-        sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-    become_user: vagrant
 #        cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 #        chown $(id -u):$(id -g) $HOME/.kube/config
 #    shell:
