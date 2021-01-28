@@ -4,10 +4,10 @@
   tasks:
 
   - name: Copy the join command to server location
-    copy: src=shared-data dest=/tmp/join-command.sh mode=0777
+    copy: src=shared-data dest=/tmp/shared-data.sh mode=0777
 
   - name: Join the node to cluster
-    command: sh /tmp/join-command.sh
+    command: sh /tmp/shared-data.sh
 
   - name: Setup auto completion - step 1
     shell: |
