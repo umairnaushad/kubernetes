@@ -1,8 +1,5 @@
 ---
 - hosts: all
-  vars:
-    master_node_ip: 192.168.10.11
-    pod_network_cidr: 192.168.50.0/24
   become: true
   tasks:
   - name: Update /etc/resolv.conf for corporate network

@@ -3,4 +3,4 @@
 
 [worker-node]
 192.168.10.21 ansible_ssh_pass=vagrant ansible_ssh_user=vagrant
-192.168.10.22 ansible_ssh_pass=vagrant ansible_ssh_user=vagrant
+#192.168.10.22 ansible_ssh_pass=vagrant ansible_ssh_user=vagrant
