@@ -42,11 +42,9 @@
   - name: Generate shared data 1
     command: kubeadm token create --print-join-command
     register: shared_data
-    become: yes
 
   - name: Copy join command to shared data
     local_action: copy content="{{ shared_data.stdout_lines[0] }}" dest="./shared-data"
-    become: yes
 
   - name: Generate shared data 2
     command: cat /etc/kubernetes/admin.conf
