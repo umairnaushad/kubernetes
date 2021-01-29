@@ -7,8 +7,12 @@
   tasks:
   
   - name: Copy Remote-To-Remote (from serverA to serverB)
-    shell: |
-      sudo scp "{{ NON_ROOT_USER }}"@"{{ MASTER_IP }}":/tmp/admin.conf /tmp/kubernetes/
+    ansible.builtin.fetch:
+      src: /tmp/file.txt
+      dest: /tmp/fetched
+
+#    shell: |
+#      sudo scp vagrant@192.168.10.11:/tmp/admin.conf /tmp/kubernetes/
 
 #  - name: Get join command from master
 #    copy: src=shared-data-command dest=/tmp/shared-data.sh mode=0777
