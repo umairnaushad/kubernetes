@@ -4,10 +4,10 @@
   tasks:
 
   - name: Copy the join command to server location
-    copy: src=shared-data1 dest=/tmp/shared-data.sh mode=0777
+    copy: src=shared-data dest=/tmp/shared-data.sh mode=0777
 
   - name: Copy the join command to server location
-    copy: src=shared-data2 dest=/etc/kubernetes/admin.conf mode=0777
+    copy: src=shared-data dest=/etc/kubernetes/admin.conf mode=0777
 
   - name: Join the node to cluster
     shell: |
