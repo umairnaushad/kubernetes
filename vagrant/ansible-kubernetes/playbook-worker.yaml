@@ -11,10 +11,10 @@
 
   - name: Get /etc/kubernetes/admin.conf from master
     copy: src=shared-data2 dest=/etc/kubernetes/admin.conf mode=0777
+    become: yes
 
   - name: Initialize kubectl command
     shell: |
-      sudo rm -rf $HOME/.kube
       mkdir -p $HOME/.kube
       sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
       sudo chown $(id -u):$(id -g) $HOME/.kube/config
