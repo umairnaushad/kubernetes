@@ -1,47 +1,52 @@
 ---
 - hosts: worker-node
   vars:
+    MASTER_IP: 192.168.10.11
     NON_ROOT_USER: vagrant
   become: true
   tasks:
+  
+  - name: Copy Remote-To-Remote (from serverA to serverB)
+    synchronize: src=/etc/kubernetes/admin.conf dest=/tmp
+    delegate_to: "{{ MASTER_IP }}"
 
-  - name: Get join command from master
-    copy: src=shared-data-command dest=/tmp/shared-data.sh mode=0777
+#  - name: Get join command from master
+#    copy: src=shared-data-command dest=/tmp/shared-data.sh mode=0777
 
-  - name: Join node to cluster
-    command: sh /tmp/shared-data.sh
+#  - name: Join node to cluster
+#    command: sh /tmp/shared-data.sh
 
-  - name: Get /etc/kubernetes/admin.conf from master
-    copy: src=shared-data-conf dest=/etc/kubernetes/admin.conf mode=0777
+#  - name: Get /etc/kubernetes/admin.conf from master
+#    copy: src=shared-data-conf dest=/etc/kubernetes/admin.conf mode=0777
 
-  - name: Configure for non-root user
-    shell: |
-      sudo rm -rf $HOME/.kube
-      mkdir -p $HOME/.kube
-      sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-      sudo chown $(id -u):$(id -g) $HOME/.kube/config
-    become: yes
-    become_user: "{{ NON_ROOT_USER }}"
+#  - name: Configure for non-root user
+#    shell: |
+#      sudo rm -rf $HOME/.kube
+#      mkdir -p $HOME/.kube
+#      sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+#      sudo chown $(id -u):$(id -g) $HOME/.kube/config
+#    become: yes
+#    become_user: "{{ NON_ROOT_USER }}"
 
-  - name: Configure for root user
-    shell: |
-      sudo rm -rf $HOME/.kube
-      mkdir -p $HOME/.kube
-      sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-      sudo chown $(id -u):$(id -g) $HOME/.kube/config
+#  - name: Configure for root user
+#    shell: |
+#      sudo rm -rf $HOME/.kube
+#      mkdir -p $HOME/.kube
+#      sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+#      sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
-  - name: Auto completion for non-root user
-    shell: |
-      echo "source <(kubectl completion bash)" >>~/.bashrc
-      sudo kubectl completion bash >/etc/bash_completion.d/kubectl
-    become_user: "{{ NON_ROOT_USER }}"
+#  - name: Auto completion for non-root user
+#    shell: |
+#      echo "source <(kubectl completion bash)" >>~/.bashrc
+#      sudo kubectl completion bash >/etc/bash_completion.d/kubectl
+#    become_user: "{{ NON_ROOT_USER }}"
 
-  - name: Auto completion for root user
-    shell: |
-      echo "source <(kubectl completion bash)" >>~/.bashrc
-      sudo kubectl completion bash >/etc/bash_completion.d/kubectl
+#  - name: Auto completion for root user
+#    shell: |
+#      echo "source <(kubectl completion bash)" >>~/.bashrc
+#      sudo kubectl completion bash >/etc/bash_completion.d/kubectl
 
-  - name: Setup auto completion
-    shell: source $HOME/.bashrc && source /usr/share/bash-completion/bash_completion
-    args:
-      executable: /bin/bash
+#  - name: Setup auto completion
+#    shell: source $HOME/.bashrc && source /usr/share/bash-completion/bash_completion
+#    args:
+#      executable: /bin/bash
