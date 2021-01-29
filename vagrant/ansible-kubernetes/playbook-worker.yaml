@@ -12,14 +12,13 @@
     command: sh /tmp/shared-data.sh
 
   - name: Get /etc/kubernetes/admin.conf from master
-    copy: src=shared-data-conf dest=/tmp/admin.conf mode=0777
+    copy: src=shared-data-conf dest=/etc/kubernetes/admin.conf mode=0777
 
   - name: Configure for non-root user
     shell: |
-      sudo chown $(id -u):$(id -g) /tmp/admin.conf
       sudo rm -rf $HOME/.kube
       mkdir -p $HOME/.kube
-      sudo cp -i /tmp/admin.conf $HOME/.kube/config
+      sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
       sudo chown $(id -u):$(id -g) $HOME/.kube/config
     become: yes
     become_user: "{{ NON_ROOT_USER }}"
@@ -28,13 +27,13 @@
     shell: |
       sudo rm -rf $HOME/.kube
       mkdir -p $HOME/.kube
-      sudo cp -i /tmp/admin.conf $HOME/.kube/config
+      sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
       sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
   - name: Auto completion for non-root user
     shell: |
-      sudo echo "source <(kubectl completion bash)" >>~/.bashrc
-#      sudo kubectl completion bash >/etc/bash_completion.d/kubectl
+      echo "source <(kubectl completion bash)" >>~/.bashrc
+      sudo kubectl completion bash >/etc/bash_completion.d/kubectl
     become_user: "{{ NON_ROOT_USER }}"
 
   - name: Auto completion for root user
