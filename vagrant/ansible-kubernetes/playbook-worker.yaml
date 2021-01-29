@@ -4,13 +4,13 @@
   tasks:
 
   - name: Get join command from master
-    copy: src=shared-data1 dest=/tmp/shared-data.sh mode=0777
+    copy: src=shared-data-command dest=/tmp/shared-data.sh mode=0777
 
-  - name: Join the node to cluster
+  - name: Join node to cluster
     command: sh /tmp/shared-data.sh
 
   - name: Get /etc/kubernetes/admin.conf from master
-    copy: src=shared-data2 dest=/etc/kubernetes/admin.conf mode=0777
+    copy: src=shared-data-conf dest=/etc/kubernetes/admin.conf mode=0777
     become: yes
 
   - name: Initialize kubectl command
