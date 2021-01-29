@@ -33,7 +33,7 @@
   - name: Auto completion for non-root user
     shell: |
       sudo echo "source <(kubectl completion bash)" >>~/.bashrc
-      sudo kubectl completion bash >/etc/bash_completion.d/kubectl
+#      sudo kubectl completion bash >/etc/bash_completion.d/kubectl
     become_user: "{{ NON_ROOT_USER }}"
 
   - name: Auto completion for root user
