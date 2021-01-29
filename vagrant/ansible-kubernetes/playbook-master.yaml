@@ -44,14 +44,14 @@
     register: shared_data1
 
   - name: Copy join command to shared data
-    local_action: copy content="{{ shared_data1.stdout_lines[0] }}" dest="./shared-data"
+    local_action: copy content="{{ shared_data1.stdout_lines[0] }}" dest="./shared-data1"
 
   - name: Generate shared data 2
     command: cat /etc/kubernetes/admin.conf
     register: shared_data2
 
   - name: Copy admin.conf to shared data
-    local_action: copy content="{{ shared_data2 }}" dest="./shared-data"
+    local_action: copy content="{{ shared_data2 }}" dest="./shared-data2"
 
   - name: Setup auto completion - step 1
     shell: |
