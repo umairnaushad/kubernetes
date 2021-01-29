@@ -1,5 +1,6 @@
 ---
 - hosts: all
+  NON_ROOT_USER: vagrant
   become: true
   tasks:
   - name: Update /etc/resolv.conf for corporate network
@@ -64,9 +65,9 @@
         - docker-ce-cli
         - containerd.io
 
-  - name: Add vagrant user to docker group
+  - name: Add non-root user to docker group
     user:
-      name: vagrant
+      name: "{{ NON_ROOT_USER }}"
       group: docker
 
   - name: Kubernetes apt signing key
