@@ -7,8 +7,8 @@
   become: true
   tasks:
  
-  - name: Initialize the Kubernetes cluster using kubeadm
-    command: kubeadm init --apiserver-advertise-address="{{ MASTER_IP }}" --apiserver-cert-extra-sans="{{ MASTER_IP }}"  --node-name k8s-master --pod-network-cidr={{ POD_CIDR }}
+#  - name: Initialize the Kubernetes cluster using kubeadm
+#    command: kubeadm init --apiserver-advertise-address="{{ MASTER_IP }}" --apiserver-cert-extra-sans="{{ MASTER_IP }}"  --node-name k8s-master --pod-network-cidr={{ POD_CIDR }}
 
   - name: Initialize kubectl command
     shell: |
@@ -28,11 +28,9 @@
       - { src: 'dashboard-read-only.yaml', dest: "{{ DATA_PATH }}" }
 
   - name: Install calico pod network
-    become: false
     command: kubectl apply -f "{{ DATA_PATH }}"calico.yaml
 
   - name: Install dashboard
-    become: false
     shell:
         kubectl apply 
         -f "{{ DATA_PATH }}"dashboard.yaml 
@@ -42,21 +40,17 @@
   - name: Generate shared data 1
     command: kubeadm token create --print-join-command
     register: shared_data1
-    become: yes
-
+    
   - name: Copy join command to shared data
-    local_action: sudo copy content="{{ shared_data1.stdout_lines[0] }}" dest="./shared-data-command"
-    become: yes
-
+    local_action: copy content="{{ shared_data1.stdout_lines[0] }}" dest="./shared-data-command"
+    
   - name: Generate shared data 2
     command: cat /etc/kubernetes/admin.conf
     register: shared_data2
-    become: yes
-
+    
   - name: Copy admin.conf to shared data
-    local_action: sudo copy content="{{ shared_data2 }}" dest="./shared-data-conf"
-    become: yes
-
+    local_action: copy content="{{ shared_data2 }}" dest="./shared-data-conf"
+    
   - name: Setup auto completion - step 1
     shell: |
       echo "source <(kubectl completion bash)" >>~/.bashrc
