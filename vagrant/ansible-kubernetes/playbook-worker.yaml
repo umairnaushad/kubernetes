@@ -7,7 +7,9 @@
   tasks:
   
   - name: Copy Remote-To-Remote (from serverA to serverB)
-    synchronize: src=/etc/kubernetes/admin.conf dest=/tmp
+    synchronize: 
+      src: /tmp/file.txt 
+      dest: /tmp
     delegate_to: "{{ MASTER_IP }}"
 
 #  - name: Get join command from master
