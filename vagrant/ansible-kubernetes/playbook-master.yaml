@@ -42,16 +42,20 @@
   - name: Generate shared data 1
     command: kubeadm token create --print-join-command
     register: shared_data1
+    become: yes
 
   - name: Copy join command to shared data
     local_action: copy content="{{ shared_data1.stdout_lines[0] }}" dest="./shared-data1"
+    become: yes
 
   - name: Generate shared data 2
     command: cat /etc/kubernetes/admin.conf
     register: shared_data2
+    become: yes
 
   - name: Copy admin.conf to shared data
     local_action: copy content="{{ shared_data2 }}" dest="./shared-data2"
+    become: yes
 
   - name: Setup auto completion - step 1
     shell: |
