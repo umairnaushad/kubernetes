@@ -10,7 +10,7 @@
   - name: Initialize the Kubernetes cluster using kubeadm
     command: kubeadm init --apiserver-advertise-address="{{ MASTER_IP }}" --apiserver-cert-extra-sans="{{ MASTER_IP }}"  --node-name k8s-master --pod-network-cidr={{ POD_CIDR }}
 
-  - name: Initialize kubectl command
+  - name: Configure for vagrant
     shell: |
       sudo rm -rf $HOME/.kube
       mkdir -p $HOME/.kube
@@ -18,6 +18,13 @@
       sudo chown $(id -u):$(id -g) $HOME/.kube/config
     become: yes
     become_user: vagrant
+
+  - name: Configure for root
+    shell: |
+      sudo rm -rf $HOME/.kube
+      mkdir -p $HOME/.kube
+      sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+      sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
   - name: Copy yaml files
     copy: src={{ item.src }} dest={{ item.dest }}
