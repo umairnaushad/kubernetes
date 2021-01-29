@@ -3,14 +3,23 @@
   become: true
   tasks:
 
-  - name: Copy the join command to server location
+  - name: Get join command from master
     copy: src=shared-data1 dest=/tmp/shared-data.sh mode=0777
 
   - name: Join the node to cluster
     command: sh /tmp/shared-data.sh
 
-  - name: Copy the join command to server location
+  - name: Get /etc/kubernetes/admin.conf from master
     copy: src=shared-data2 dest=/etc/kubernetes/admin.conf mode=0777
+
+  - name: Initialize kubectl command
+    shell: |
+      sudo rm -rf $HOME/.kube
+      mkdir -p $HOME/.kube
+      sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+      sudo chown $(id -u):$(id -g) $HOME/.kube/config
+    become: yes
+    become_user: vagrant
 
   - name: Setup auto completion - step 1
     shell: |
