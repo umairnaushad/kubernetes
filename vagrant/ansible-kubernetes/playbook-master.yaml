@@ -57,17 +57,17 @@
     register: shared_data2
     
   - name: Copy admin.conf to shared data
-    local_action: copy content="{{ shared_data2 }}" dest="./shared-data-conf"
+    local_action: copy content="{{ shared_data2 }}" dest="./shared-data-conf2"
     
   - name: Auto completion for non-root user
     shell: |
-      echo "source <(kubectl completion bash)" >>~/.bashrc
+      sudo echo "source <(kubectl completion bash)" >>~/.bashrc
       sudo kubectl completion bash >/etc/bash_completion.d/kubectl
     become_user: "{{ NON_ROOT_USER }}"
 
   - name: Auto completion for root user
     shell: |
-      echo "source <(kubectl completion bash)" >>~/.bashrc
+      sudo echo "source <(kubectl completion bash)" >>~/.bashrc
       sudo kubectl completion bash >/etc/bash_completion.d/kubectl
 
   - name: Setup auto completion
