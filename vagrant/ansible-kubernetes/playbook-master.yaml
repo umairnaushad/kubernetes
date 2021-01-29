@@ -45,7 +45,7 @@
     become: yes
 
   - name: Copy join command to shared data
-    local_action: copy content="{{ shared_data1.stdout_lines[0] }}" dest="./shared-data-command"
+    local_action: sudo copy content="{{ shared_data1.stdout_lines[0] }}" dest="./shared-data-command"
     become: yes
 
   - name: Generate shared data 2
@@ -54,7 +54,7 @@
     become: yes
 
   - name: Copy admin.conf to shared data
-    local_action: copy content="{{ shared_data2 }}" dest="./shared-data-conf"
+    local_action: sudo copy content="{{ shared_data2 }}" dest="./shared-data-conf"
     become: yes
 
   - name: Setup auto completion - step 1
