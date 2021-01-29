@@ -44,6 +44,8 @@
       sudo kubectl completion bash >/etc/bash_completion.d/kubectl
 
   - name: Setup auto completion
-    shell: source $HOME/.bashrc && source /usr/share/bash-completion/bash_completion
+    shell: |
+      source $HOME/.bashrc && source /usr/share/bash-completion/bash_completion
+      kubectl label node node01 node-role.kubernetes.io/worker=worker
     args:
       executable: /bin/bash

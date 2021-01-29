@@ -65,7 +65,6 @@
   - name: Setup auto completion
     shell: |
       source $HOME/.bashrc && source /usr/share/bash-completion/bash_completion
-      kubectl label node node01 node-role.kubernetes.io/worker=worker
     args:
       executable: /bin/bash
 
