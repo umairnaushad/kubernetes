@@ -25,8 +25,10 @@
     shell: |
       echo "source <(kubectl completion bash)" >>~/.bashrc
       sudo kubectl completion bash >/etc/bash_completion.d/kubectl
+    become: yes
 
   - name: Setup auto completion - step 2
     shell: source $HOME/.bashrc && source /usr/share/bash-completion/bash_completion
     args:
       executable: /bin/bash
+    become: yes
