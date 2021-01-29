@@ -15,7 +15,7 @@
   - name: Copy admin.conf from local host to remote
     copy: src={{ item.src }} dest={{ item.dest }}
     with_items:
-      - { src: 'admin.conf', dest: /etc/kubernetes/admin.conf }
+      - { src: '/tmp/admin.conf', dest: /etc/kubernetes/admin.conf }
 
 #  - name: Get /etc/kubernetes/admin.conf from master
 #    copy: src=shared-data-conf dest=/etc/kubernetes/admin.conf mode=0777
