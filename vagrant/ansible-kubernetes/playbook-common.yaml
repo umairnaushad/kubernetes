@@ -1,6 +1,7 @@
 ---
 - hosts: all
-  NON_ROOT_USER: vagrant
+  vars:
+    NON_ROOT_USER: vagrant
   become: true
   tasks:
   - name: Update /etc/resolv.conf for corporate network
