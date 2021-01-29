@@ -17,9 +17,6 @@
     with_items:
       - { src: '/tmp/admin.conf', dest: /etc/kubernetes/admin.conf }
 
-  - name: Get /etc/kubernetes/admin.conf from master
-    copy: src=shared-data-conf dest=/etc/kubernetes/admin.conf mode=0777
-
   - name: Configure for non-root user
     shell: |
       sudo rm -rf $HOME/.kube
