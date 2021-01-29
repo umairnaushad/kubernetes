@@ -70,5 +70,5 @@
   - name: Copy admin.conf from to hostmachine
     ansible.builtin.fetch:
       src: /etc/kubernetes/admin.conf
-      dest: /tmp/admin.conf
+      dest: admin.conf
       flat: yes

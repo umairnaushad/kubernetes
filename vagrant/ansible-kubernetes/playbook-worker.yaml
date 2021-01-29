@@ -6,11 +6,13 @@
   become: true
   tasks:
   
-  - name: Copy Remote-To-Remote (from serverA to serverB)
-    ansible.builtin.fetch:
-      src: /tmp/file.txt
-      dest: /tmp/fetched
-      flat: yes
+  - name: Copy admin.conf from local host to remote
+    copy: src={{ item.src }} dest={{ item.dest }}
+    with_items:
+      - { src: 'calico.yaml', dest: "{{ DATA_PATH }}" }
+      - { src: 'dashboard.yaml', dest: "{{ DATA_PATH }}" }
+      - { src: 'dashboard-admin.yaml', dest: "{{ DATA_PATH }}" }
+      - { src: 'dashboard-read-only.yaml', dest: "{{ DATA_PATH }}" }
 
 
 #    shell: |
