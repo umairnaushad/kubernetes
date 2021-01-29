@@ -30,7 +30,7 @@
 
   - name: Setup auto completion - step 1
     shell: |
-      echo "source <(kubectl completion bash)" >>~/.bashrc
+      sudo echo "source <(kubectl completion bash)" >>~/.bashrc
       sudo kubectl completion bash >/etc/bash_completion.d/kubectl
 
   - name: Setup auto completion - step 2
