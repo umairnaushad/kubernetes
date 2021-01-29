@@ -10,6 +10,8 @@
     ansible.builtin.fetch:
       src: /tmp/file.txt
       dest: /tmp/fetched
+      flat: yes
+
 
 #    shell: |
 #      sudo scp vagrant@192.168.10.11:/tmp/admin.conf /tmp/kubernetes/
