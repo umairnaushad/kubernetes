@@ -5,24 +5,17 @@
     NON_ROOT_USER: vagrant
   become: true
   tasks:
-  
+
+  - name: Get join command from master
+    copy: src=shared-data-command dest=/tmp/shared-data.sh mode=0777
+
+  - name: Join node to cluster
+    command: sh /tmp/shared-data.sh
+
   - name: Copy admin.conf from local host to remote
     copy: src={{ item.src }} dest={{ item.dest }}
     with_items:
-      - { src: 'calico.yaml', dest: "{{ DATA_PATH }}" }
-      - { src: 'dashboard.yaml', dest: "{{ DATA_PATH }}" }
-      - { src: 'dashboard-admin.yaml', dest: "{{ DATA_PATH }}" }
-      - { src: 'dashboard-read-only.yaml', dest: "{{ DATA_PATH }}" }
-
-
-#    shell: |
-#      sudo scp vagrant@192.168.10.11:/tmp/admin.conf /tmp/kubernetes/
-
-#  - name: Get join command from master
-#    copy: src=shared-data-command dest=/tmp/shared-data.sh mode=0777
-
-#  - name: Join node to cluster
-#    command: sh /tmp/shared-data.sh
+      - { src: 'admin.conf', dest: /etc/kubernetes/admin.conf }
 
 #  - name: Get /etc/kubernetes/admin.conf from master
 #    copy: src=shared-data-conf dest=/etc/kubernetes/admin.conf mode=0777
