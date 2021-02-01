@@ -34,6 +34,7 @@
       - { src: 'dashboard.yaml', dest: "{{ DATA_PATH }}" }
       - { src: 'dashboard-admin.yaml', dest: "{{ DATA_PATH }}" }
       - { src: 'dashboard-read-only.yaml', dest: "{{ DATA_PATH }}" }
+      - { src: 'ingress-nginx.yaml', dest: "{{ DATA_PATH }}" }
 
   - name: Install calico pod network
     command: kubectl apply -f "{{ DATA_PATH }}"calico.yaml
