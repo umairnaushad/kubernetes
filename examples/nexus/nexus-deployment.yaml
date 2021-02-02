@@ -13,23 +13,23 @@ spec:
       labels:
         app: nexus-server
     spec:
-    containers:
-      - name: nexus
-        image: sonatype/nexus3:3.29.0
-        resources: 
-          requests:
-            cpu: "500m"
-            memory: "500Mi"
-          limits:
-            cpu: "1000m"
-            memory: "800Mi"
-        volumeMounts:
-          - name: nexus-data
-            mountPath: /nexus-data
-    volumes:
-      - name: nexus-data
-        persistentVolumeClaim:
-          claimName: nexus-pvc-nfs
+      containers:
+        - name: nexus
+          image: sonatype/nexus3:3.29.0
+          resources: 
+            requests:
+              cpu: "500m"
+              memory: "500Mi"
+            limits:
+              cpu: "1000m"
+              memory: "800Mi"
+          volumeMounts:
+            - name: nexus-data
+              mountPath: /nexus-data
+      volumes:
+        - name: nexus-data
+          persistentVolumeClaim:
+            claimName: nexus-pvc-nfs
 ---
 apiVersion: v1
 kind: Service
