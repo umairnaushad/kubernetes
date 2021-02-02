@@ -42,6 +42,5 @@
     copy: 
       src: /opt/kubernetes/ 
       dest: /opt/kubernetes/
-      remote_src: yes
       directory_mode: yes
-      mode: '777'
+      mode: '644'
