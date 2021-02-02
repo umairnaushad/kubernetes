@@ -27,3 +27,12 @@
       path: /etc/exports
       line: '{{ NFS_SHARE }} {{ NODE_CIDR }}(rw,sync,no_subtree_check)'
       create: yes
+
+  - name: Export the NFS Share Directory
+    shell: |
+      exportfs -a
+      systemctl restart nfs-kernel-server
+
+  - name: Allow NFS Access through the Firewall
+    shell: |
+      ufw allow from {{ NODE_CIDR }} to any port nfs
