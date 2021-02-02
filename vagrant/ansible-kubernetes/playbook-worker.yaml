@@ -48,3 +48,10 @@
       source $HOME/.bashrc && source /usr/share/bash-completion/bash_completion
     args:
       executable: /bin/bash
+
+  # Following step is to resolve logs/exec error on worker node
+  - name: Grant NFS Share Access to Client Systems
+    ansible.builtin.lineinfile:
+      path: /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+      line: 'Environment="KUBELET_EXTRA_ARGS=--node-ip=192.168.10.21"'
+      create: yes
