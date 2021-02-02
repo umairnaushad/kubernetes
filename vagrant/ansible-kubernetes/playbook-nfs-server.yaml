@@ -46,7 +46,7 @@
   - name: Install NFS Provisioner
     shell:
         kubectl apply
-        -f "{{ DATA_PATH }}"nfs-namespace.yaml
-        -f "{{ DATA_PATH }}"nfs-class.yaml
-        -f "{{ DATA_PATH }}"nfs-rbac.yaml
-        -f "{{ DATA_PATH }}"nfs-deployment.yaml
+        -f "{{ DATA_PATH }}"nfs-dynamic-provisioner/nfs-namespace.yaml
+        -f "{{ DATA_PATH }}"nfs-dynamic-provisioner/nfs-class.yaml
+        -f "{{ DATA_PATH }}"nfs-dynamic-provisioner/nfs-rbac.yaml
+        -f "{{ DATA_PATH }}"nfs-dynamic-provisioner/nfs-deployment.yaml
