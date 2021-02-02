@@ -8,7 +8,7 @@
   become: true
   tasks:
  
-  - name: Initialize the Kubernetes cluster using kubeadm
+  - name: Initialize Kubernetes Cluster using Kubeadm
     command: kubeadm init --apiserver-advertise-address="{{ MASTER_IP }}" --apiserver-cert-extra-sans="{{ MASTER_IP }}" --node-name k8s-master --pod-network-cidr={{ POD_CIDR }}
 
   - name: Configure for non-root
@@ -27,7 +27,7 @@
       sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
       sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
-  - name: Copy yaml files
+  - name: Copy YAML files
     copy: src={{ item.src }} dest={{ item.dest }}
     with_items:
       - { src: 'calico.yaml', dest: "{{ DATA_PATH }}" }
@@ -37,38 +37,42 @@
       - { src: 'dashboard-ingress.yaml', dest: "{{ DATA_PATH }}" }
       - { src: 'ingress-nginx.yaml', dest: "{{ DATA_PATH }}" }
 
-  - name: 2 minute wait for initialization
+  - name: 1 minute wait for initialization
     pause:
-      minutes: 2
+      minutes: 1
 
-  - name: Install calico pod network
+  - name: Install Calico Pod Network
     command: kubectl apply -f "{{ DATA_PATH }}"calico.yaml
 
-  - name: Install dashboard
+  - name: 1 minute wait for initialization
+    pause:
+      minutes: 1
+
+  - name: Install Dashboard
     shell:
         kubectl apply
         -f "{{ DATA_PATH }}"dashboard.yaml
         -f "{{ DATA_PATH }}"dashboard-admin.yaml
         -f "{{ DATA_PATH }}"dashboard-read-only.yaml
 
-  - name: Generate shared for join command
+  - name: Generate Shared Data for Join Command
     command: kubeadm token create --print-join-command
     register: shared_data1
 
-  - name: Copy join command to shared data
+  - name: Copy Join Command to Shared Data
     local_action: copy content="{{ shared_data1.stdout_lines[0] }}" dest="./shared-data-command"
 
-  - name: Auto completion for non-root user
+  - name: Auto Completion for non-root user
     shell: |
       sudo echo "source <(kubectl completion bash)" >>~/.bashrc
     become_user: "{{ NON_ROOT_USER }}"
 
-  - name: Auto completion for root user
+  - name: Auto Completion for root user
     shell: |
       sudo echo "source <(kubectl completion bash)" >>~/.bashrc
       sudo kubectl completion bash >/etc/bash_completion.d/kubectl
 
-  - name: Setup auto completion
+  - name: Setup Auto Completion
     shell: |
       source $HOME/.bashrc && source /usr/share/bash-completion/bash_completion
     args:

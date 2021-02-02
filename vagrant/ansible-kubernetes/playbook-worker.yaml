@@ -7,17 +7,17 @@
   become: true
   tasks:
 
-  - name: Get join command from master
+  - name: Get Join Command from Master
     copy: src=shared-data-command dest=/tmp/shared-data.sh mode=0777
 
-  - name: Join node to cluster
+  - name: Join Node to Cluster
     command: sh /tmp/shared-data.sh
 
   - name: 1 minute wait for initialization
     pause:
       minutes: 1
 
-  - name: Copy admin.conf from local host to remote
+  - name: Copy admin.conf From localhost to Remote
     copy: src={{ item.src }} dest={{ item.dest }}
     with_items:
       - { src: '/tmp/admin.conf', dest: /etc/kubernetes/admin.conf }
@@ -38,17 +38,17 @@
       sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
       sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
-  - name: Auto completion for non-root user
+  - name: Auto Completion for non-root user
     shell: |
       echo "source <(kubectl completion bash)" >>~/.bashrc
     become_user: "{{ NON_ROOT_USER }}"
 
-  - name: Auto completion for root user
+  - name: Auto Completion for root user
     shell: |
       echo "source <(kubectl completion bash)" >>~/.bashrc
       sudo kubectl completion bash >/etc/bash_completion.d/kubectl
 
-  - name: Setup auto completion
+  - name: Setup Auto Completion
     shell: |
       source $HOME/.bashrc && source /usr/share/bash-completion/bash_completion
     args:
@@ -66,12 +66,12 @@
       systemctl daemon-reload
       systemctl restart kubelet
 
-  - name: Copy yaml files
+  - name: Copy YAML Files
     copy: src={{ item.src }} dest={{ item.dest }}
     with_items:
       - { src: 'ingress-nginx.yaml', dest: "{{ DATA_PATH }}" }
 
-  - name: Install nginxingress
+  - name: Install Nginx Ingress
     shell:
         kubectl apply
         -f "{{ DATA_PATH }}"ingress-nginx.yaml

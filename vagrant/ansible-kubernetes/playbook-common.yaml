@@ -4,18 +4,14 @@
     NON_ROOT_USER: vagrant
   become: true
   tasks:
-  - name: Update /etc/resolv.conf for corporate network
+  - name: Update /etc/resolv.conf for Corporate Network
     ansible.builtin.lineinfile:
       path: /etc/resolv.conf
       line: nameserver 8.8.8.8
 
-  - name: Update packages
+  - name: Update Packages
     apt:
       update_cache: yes
-    #command: "{{ item }}"
-    #with_items:
-    ##- sudo rm -vf /var/lib/apt/lists/*
-    #- sudo apt update
 
   - name: Install Packages
     apt:
@@ -29,7 +25,7 @@
         - gnupg2
         - nfs-common
 
-  - name: Disable swap space
+  - name: Disable Swap Space
     command: swapoff -a
     when: ansible_swaptotal_mb > 0
 
@@ -46,11 +42,6 @@
     apt_key:
       url: https://download.docker.com/linux/ubuntu/gpg
       state: present
-    #command: "{{ item }}"
-    #with_items:
-    #- sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key --keyring /etc/apt/trusted.gpg.d/docker.gpg add -
-    #- sudo add-apt-repository deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release | lower }} stable
-    #- sudo apt update
     retries: 3
           
   - name: Docker apt reposiotry
@@ -58,7 +49,7 @@
       repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release | lower }} stable
     retries: 3
 
-  - name: Install docker
+  - name: Install Docker
     apt:
       state: present
       name: 
@@ -66,7 +57,7 @@
         - docker-ce-cli
         - containerd.io
 
-  - name: Add non-root user to docker group
+  - name: Add non-root User to Docker Group
     user:
       name: "{{ NON_ROOT_USER }}"
       group: docker

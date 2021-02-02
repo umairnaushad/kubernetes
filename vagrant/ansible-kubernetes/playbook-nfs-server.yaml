@@ -7,7 +7,7 @@
   become: true
   tasks:
 
-  - name: Update packages
+  - name: Update Packages
     apt:
       update_cache: yes
 
@@ -17,7 +17,7 @@
       name:
         - nfs-kernel-server
 
-  - name: Create an NFS Export Directory
+  - name: Create NFS Export Directory
     shell: |
       mkdir -p "{{ NFS_SHARE }}"
       chown -R nobody:nogroup "{{ NFS_SHARE }}"/
@@ -29,21 +29,21 @@
       line: '{{ NFS_SHARE }} {{ NODE_CIDR }}(rw,sync,no_subtree_check)'
       create: yes
 
-  - name: Export the NFS Share Directory
+  - name: Export NFS Share Directory
     shell: |
       exportfs -a
       systemctl restart nfs-kernel-server
 
-  - name: Allow NFS Access through the Firewall
+  - name: Allow NFS Access through Firewall
     shell: |
       ufw allow from {{ NODE_CIDR }} to any port nfs
 
-  - name: Copy yaml files
+  - name: Copy YAML Files
     copy: src={{ item.src }} dest={{ item.dest }}
     with_items:
       - { src: '/opt/kubernetes/examples/', dest: "{{ DATA_PATH }}" }
 
-  - name: Install nfs provisioner
+  - name: Install NFS Provisioner
     shell:
         kubectl apply
         -f "{{ DATA_PATH }}"nfs-namespace.yaml
