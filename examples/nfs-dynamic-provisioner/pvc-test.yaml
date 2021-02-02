@@ -2,10 +2,11 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: test-claim
+  namespace: default
   annotations:
-    volume.beta.kubernetes.io/storage-class: "nfs-storageclass"
+    volume.beta.kubernetes.io/storage-class: "managed-nfs-storage"
 spec:
-  storageClassName: nfs-storageclass
+  storageClassName: managed-nfs-storage
   accessModes:
     - ReadWriteMany
   resources:

@@ -3,6 +3,7 @@
   vars:
     MASTER_IP: 192.168.10.11
     NON_ROOT_USER: vagrant
+    DATA_PATH: /opt/kubernetes/
   become: true
   tasks:
 
@@ -12,9 +13,9 @@
   - name: Join node to cluster
     command: sh /tmp/shared-data.sh
 
-  - name: 2 minute wait for initialization
+  - name: 1 minute wait for initialization
     pause:
-      minutes: 2
+      minutes: 1
 
   - name: Copy admin.conf from local host to remote
     copy: src={{ item.src }} dest={{ item.dest }}
@@ -64,3 +65,17 @@
     shell: |
       systemctl daemon-reload
       systemctl restart kubelet
+
+  - name: Copy yaml files
+    copy: src={{ item.src }} dest={{ item.dest }}
+    with_items:
+      - { src: 'ingress-nginx.yaml', dest: "{{ DATA_PATH }}" }
+
+  - name: Install nginxingress
+    shell:
+        kubectl apply
+        -f "{{ DATA_PATH }}"ingress-nginx.yaml
+
+  - name: 2 minute wait for initialization
+    pause:
+      minutes: 2

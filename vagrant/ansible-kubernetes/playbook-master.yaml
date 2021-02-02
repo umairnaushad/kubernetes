@@ -51,19 +51,6 @@
         -f "{{ DATA_PATH }}"dashboard-admin.yaml
         -f "{{ DATA_PATH }}"dashboard-read-only.yaml
 
-  - name: 2 minute wait for initialization
-    pause:
-      minutes: 2
-
-  - name: Install nginxingress
-    shell:
-        kubectl apply
-        -f "{{ DATA_PATH }}"ingress-nginx.yaml
-
-  - name: 1 minute wait for initialization
-    pause:
-      minutes: 1
-
   - name: Generate shared for join command
     command: kubeadm token create --print-join-command
     register: shared_data1
@@ -92,3 +79,7 @@
       src: /etc/kubernetes/admin.conf
       dest: /tmp/admin.conf
       flat: yes
+
+  - name: 2 minute wait for initialization
+    pause:
+      minutes: 2
