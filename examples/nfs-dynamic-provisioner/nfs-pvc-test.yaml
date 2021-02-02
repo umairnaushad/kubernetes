@@ -2,7 +2,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: test-claim
-  namespace: default
+  namespace: nfs-provisioner
   annotations:
     volume.beta.kubernetes.io/storage-class: "managed-nfs-storage"
 spec:
