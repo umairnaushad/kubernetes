@@ -1,0 +1,8 @@
+# storage class scope is outside the namespace
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+ name: nfs-storageclass # IMPORTANT pvc needs to mention this name
+provisioner: kubernetes.io/nfs-dynamic-provisioner # name can be anything
+parameters:
+ archiveOnDelete: "false"
