@@ -39,5 +39,7 @@
       ufw allow from {{ NODE_CIDR }} to any port nfs
 
   - name: Copy yaml files
-    copy: src=/opt/kubernetes/ dest=/opt/kubernetes/
-    directory_mode: yes
+    copy: 
+      src: /opt/kubernetes/ 
+      dest: /opt/kubernetes/
+      directory_mode: yes
