@@ -23,6 +23,8 @@ kubectl get secret -n kubernetes-dashboard $(kubectl get serviceaccount admin-us
 logs and exec now working
 Add "Environment="KUBELET_EXTRA_ARGS=--node-ip=192.168.10.21"" in file "/etc/systemd/system/kubelet.service.d/10-kubeadm.conf"
 https://medium.com/@joatmon08/playing-with-kubeadm-in-vagrant-machines-part-2-bac431095706
+systemctl daemon-reload
+systemctl restart kubelet
 
 ################################################## Issues in nginx dynamic pvc ##################################################
 Add "- --feature-gates=RemoveSelfLink=false" in file "/etc/kubernetes/manifests/kube-apiserver.yaml"

@@ -26,8 +26,8 @@ spec:
             - name: nfs-client-root
               mountPath: /persistentvolumes
           env:
-            - name: nfs-k8s-data
-              value: fuseim.pri/ifs
+            - name: PROVISIONER_NAME
+              value: nfs-k8s-data
             - name: NFS_SERVER
               value: 192.168.10.21
             - name: NFS_PATH
