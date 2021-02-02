@@ -39,9 +39,6 @@
       ufw allow from {{ NODE_CIDR }} to any port nfs
 
   - name: Copy yaml files
-    copy: 
-      src: /opt/kubernetes/ 
-      dest: /opt/kubernetes/
-      remote_src: yes
-      directory_mode: yes
-      mode: '644'
+    copy: src={{ item.src }} dest={{ item.dest }}
+    with_items:
+      - { src: '/opt/kubernetes/examples/', dest: "{{ DATA_PATH }}" }
