@@ -2,6 +2,7 @@
 - hosts: nfs-server
   vars:
     NFS_SHARE: /mnt/k8s-data
+    NODE_CIDR: 192.168.10.0/24
   become: true
   tasks:
 
@@ -17,7 +18,12 @@
 
   - name: Create an NFS Export Directory
     shell: |
-      mkdir -p ""{{ NFS_SHARE }}""
-      chown -R nobody:nogroup ""{{ NFS_SHARE }}""/
-      chmod 777 ""{{ NFS_SHARE }}""/
+      mkdir -p "{{ NFS_SHARE }}"
+      chown -R nobody:nogroup "{{ NFS_SHARE }}"/
+      chmod 777 "{{ NFS_SHARE }}"/
 
+  - name: Grant NFS Share Access to Client Systems
+    ansible.builtin.lineinfile:
+      path: /etc/exports
+      line: '"{{ NFS_SHARE }}" ""{{ NODE_CIDR }}""(rw,sync,no_subtree_check)'
+      create: yes
