@@ -37,9 +37,9 @@
       - { src: 'dashboard-ingress.yaml', dest: "{{ DATA_PATH }}" }
       - { src: 'ingress-nginx.yaml', dest: "{{ DATA_PATH }}" }
 
-  - name: 1 minute wait for initialization
+  - name: 2 minute wait for initialization
     pause:
-      minutes: 1
+      minutes: 2
 
   - name: Install calico pod network
     command: kubectl apply -f "{{ DATA_PATH }}"calico.yaml
