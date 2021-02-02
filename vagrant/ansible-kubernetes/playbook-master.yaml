@@ -11,10 +11,6 @@
   - name: Initialize the Kubernetes cluster using kubeadm
     command: kubeadm init --apiserver-advertise-address="{{ MASTER_IP }}" --apiserver-cert-extra-sans="{{ MASTER_IP }}" --node-name k8s-master --pod-network-cidr={{ POD_CIDR }}
 
-  - name: 1 minute wait for initialization
-    pause:
-      minutes: 1
-
   - name: Configure for non-root
     shell: |
       sudo rm -rf $HOME/.kube
@@ -41,6 +37,10 @@
       - { src: 'dashboard-ingress.yaml', dest: "{{ DATA_PATH }}" }
       - { src: 'ingress-nginx.yaml', dest: "{{ DATA_PATH }}" }
 
+  - name: 1 minute wait for initialization
+    pause:
+      minutes: 1
+
   - name: Install calico pod network
     command: kubectl apply -f "{{ DATA_PATH }}"calico.yaml
 
@@ -51,9 +51,9 @@
         -f "{{ DATA_PATH }}"dashboard-admin.yaml
         -f "{{ DATA_PATH }}"dashboard-read-only.yaml
 
-  - name: 1 minute wait for initialization
+  - name: 2 minute wait for initialization
     pause:
-      minutes: 1
+      minutes: 2
 
   - name: Install nginxingress
     shell:
