@@ -12,9 +12,9 @@
   - name: Join node to cluster
     command: sh /tmp/shared-data.sh
 
-  - name: 1 minute wait for initialization
+  - name: 2 minute wait for initialization
     pause:
-      minutes: 1
+      minutes: 2
 
   - name: Copy admin.conf from local host to remote
     copy: src={{ item.src }} dest={{ item.dest }}
