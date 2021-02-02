@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: master-node,worker-node
   vars:
     NON_ROOT_USER: vagrant
   become: true

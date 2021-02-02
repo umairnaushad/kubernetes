@@ -1,0 +1,23 @@
+---
+- hosts: nfs-server
+  vars:
+    NFS_SHARE: /mnt/k8s-data
+  become: true
+  tasks:
+
+  - name: Update packages
+    apt:
+      update_cache: yes
+
+  - name: Install Package NFS-Server
+    apt:
+      state: present
+      name:
+        - nfs-kernel-server
+
+  - name: Create an NFS Export Directory
+    shell: |
+      mkdir -p ""{{ NFS_SHARE }}""
+      chown -R nobody:nogroup ""{{ NFS_SHARE }}""/
+      chmod 777 ""{{ NFS_SHARE }}""/
+
