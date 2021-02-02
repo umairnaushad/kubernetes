@@ -4,9 +4,9 @@ metadata:
   name: test-claim
   namespace: nfs-provisioner
   annotations:
-    volume.beta.kubernetes.io/storage-class: "managed-nfs-storage"
+    volume.beta.kubernetes.io/storage-class: "nfs-sc"
 spec:
-  storageClassName: managed-nfs-storage
+  storageClassName: nfs-sc
   accessModes:
     - ReadWriteMany
   resources:
