@@ -29,7 +29,7 @@ spec:
       volumes:
         - name: nexus-data
           persistentVolumeClaim:
-            claimName: nexus-pvc-nfs
+            claimName: pvc-nexus
 ---
 apiVersion: v1
 kind: Service
