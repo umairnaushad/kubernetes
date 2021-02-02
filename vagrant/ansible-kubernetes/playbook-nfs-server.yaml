@@ -3,6 +3,7 @@
   vars:
     NFS_SHARE: /mnt/k8s-data
     NODE_CIDR: 192.168.10.0/24
+    DATA_PATH: /opt/kubernetes/
   become: true
   tasks:
 
@@ -36,3 +37,8 @@
   - name: Allow NFS Access through the Firewall
     shell: |
       ufw allow from {{ NODE_CIDR }} to any port nfs
+
+  - name: Copy yaml files
+    copy: src={{ item.src }} dest={{ item.dest }}
+    with_items:
+      - { src: '..\..\examples\', dest: "{{ DATA_PATH }}" }
