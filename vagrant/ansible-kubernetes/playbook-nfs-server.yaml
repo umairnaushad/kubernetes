@@ -42,3 +42,11 @@
     copy: src={{ item.src }} dest={{ item.dest }}
     with_items:
       - { src: '/opt/kubernetes/examples/', dest: "{{ DATA_PATH }}" }
+
+  - name: Install nfs provisioner
+    shell:
+        kubectl apply
+        -f "{{ DATA_PATH }}"nfs-namespace.yaml
+        -f "{{ DATA_PATH }}"nfs-class.yaml
+        -f "{{ DATA_PATH }}"nfs-rbac.yaml
+        -f "{{ DATA_PATH }}"nfs-deployment.yaml
