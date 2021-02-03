@@ -16,13 +16,18 @@ spec:
       containers:
         - name: nexus
           image: sonatype/nexus3:3.29.0
+          env:
+          - name: MAX_HEAP
+            value: "4g"
+          - name: MIN_HEAP
+            value: "4g"
           resources: 
             requests:
               cpu: "500m"
-              memory: "500Mi"
+              memory: "1000Mi"
             limits:
               cpu: "1000m"
-              memory: "800Mi"
+              memory: "2000Mi"
           volumeMounts:
             - name: nexus-data
               mountPath: /nexus-data
