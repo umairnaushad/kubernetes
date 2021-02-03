@@ -76,6 +76,6 @@
         kubectl apply
         -f "{{ DATA_PATH }}"ingress-nginx.yaml
 
-  - name: 2 minute wait for initialization
+  - name: 1 minute wait for initialization
     pause:
-      minutes: 2
+      minutes: 1

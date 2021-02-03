@@ -78,12 +78,12 @@
     args:
       executable: /bin/bash
 
-  - name: Copy admin.conf from to hostmachine
+  - name: Copy admin.conf to hostmachine
     ansible.builtin.fetch:
       src: /etc/kubernetes/admin.conf
       dest: /tmp/admin.conf
       flat: yes
 
-  - name: 2 minute wait for initialization
+  - name: 1 minute wait for initialization
     pause:
-      minutes: 2
+      minutes: 1
