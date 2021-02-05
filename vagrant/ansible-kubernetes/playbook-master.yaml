@@ -2,7 +2,7 @@
 - hosts: master-node
   vars:
     MASTER_IP: 192.168.10.11
-    POD_CIDR: 192.168.50.0/24
+    POD_CIDR: 10.244.0.0/16
     DATA_PATH: /opt/kubernetes/
     NON_ROOT_USER: vagrant
   become: true
