@@ -7,3 +7,12 @@
 
 [nfs-server]
 192.168.56.21 ansible_ssh_pass=vagrant ansible_ssh_user=vagrant
+
+[master-node]
+ansible_python_interpreter=/usr/bin/python3
+
+[worker-node]
+ansible_python_interpreter=/usr/bin/python3
+
+[nfs-node]
+ansible_python_interpreter=/usr/bin/python3
