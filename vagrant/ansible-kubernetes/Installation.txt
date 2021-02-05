@@ -30,3 +30,11 @@ systemctl restart kubelet
 Add "- --feature-gates=RemoveSelfLink=false" in file "/etc/kubernetes/manifests/kube-apiserver.yaml"
 No need to kubectl apply
 https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/issues/25
+
+
+################################################## Vagrant Commands ##################################################
+vagrant up
+vagrant destroy
+vagrant halt
+vagrant status
+vagrant ssh master-01
