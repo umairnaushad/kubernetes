@@ -4,10 +4,10 @@
     NON_ROOT_USER: vagrant
   become: true
   tasks:
-  - name: Update /etc/resolv.conf for Corporate Network
-    ansible.builtin.lineinfile:
-      path: /etc/resolv.conf
-      line: nameserver 8.8.8.8
+#  - name: Update /etc/resolv.conf for Corporate Network
+#    ansible.builtin.lineinfile:
+#      path: /etc/resolv.conf
+#      line: nameserver 8.8.8.8
 
   - name: ULetting iptables see bridged traffic
     shell: |
