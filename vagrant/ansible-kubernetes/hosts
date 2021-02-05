@@ -1,9 +1,9 @@
 [master-node]
-192.168.10.11 ansible_ssh_pass=vagrant ansible_ssh_user=vagrant
+192.168.56.11 ansible_ssh_pass=vagrant ansible_ssh_user=vagrant
 
 [worker-node]
-192.168.10.21 ansible_ssh_pass=vagrant ansible_ssh_user=vagrant
-#192.168.10.22 ansible_ssh_pass=vagrant ansible_ssh_user=vagrant
+192.168.56.21 ansible_ssh_pass=vagrant ansible_ssh_user=vagrant
+#192.168.56.22 ansible_ssh_pass=vagrant ansible_ssh_user=vagrant
 
 [nfs-server]
-192.168.10.21 ansible_ssh_pass=vagrant ansible_ssh_user=vagrant
+192.168.65.21 ansible_ssh_pass=vagrant ansible_ssh_user=vagrant
