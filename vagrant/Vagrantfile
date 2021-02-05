@@ -6,6 +6,7 @@ ENV['VAGRANT_EXPERIMENTAL'] = 'disks'
 IMAGE_NAME = "bento/ubuntu-20.04"
 MASTER_COUNT = 1
 NODE_COUNT = 1
+IP_NETWORK = "192.168.56."
 
 Vagrant.configure("2") do |config|
   #config.ssh.insert_key = false
@@ -15,7 +16,7 @@ Vagrant.configure("2") do |config|
       master.vm.hostname = "master-0#{i}"
       master.vm.box = IMAGE_NAME
       master.vm.box_check_update = false
-      master.vm.network "private_network", ip: "192.168.10.#{i+10}"
+      master.vm.network "private_network", ip: "#{IP_NETWORK}#{i+10}"
       #master.vm.network "public_network"
       master.vm.provider "virtualbox" do |vbMaster|
         vbMaster.name = "master-0#{i}"
@@ -36,7 +37,7 @@ Vagrant.configure("2") do |config|
     config.vm.define "node-0#{j}" do |node|
       node.vm.hostname = "node-0#{j}"
       node.vm.box = IMAGE_NAME
-      node.vm.network "private_network", ip: "192.168.10.#{j+20}"
+      node.vm.network "private_network", ip: "#{IP_NETWORK}#{j+20}"
       #node.vm.network "public_network"
       node.vm.provider "virtualbox" do |vbWorker|
         vbWorker.name = "node-0#{j}"

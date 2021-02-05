@@ -9,6 +9,10 @@
       path: /etc/resolv.conf
       line: nameserver 8.8.8.8
 
+  - name: ULetting iptables see bridged traffic
+    shell: |
+      sudo modprobe br_netfilter
+
   - name: Update Packages
     apt:
       update_cache: yes
