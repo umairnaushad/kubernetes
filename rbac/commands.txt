@@ -10,7 +10,7 @@ openssl genrsa -out umair.key 2048
 Step 2: Generate CSR(Certificate Signing Request)
 openssl req -new -key umair.key -subj "/CN=kube-admin" -out umair.csr
 
-Step 3: Sign certificate
+Step 3: Sign certificate (copy ca.crt & ca.key from /etc/kubernetes/pki)
 openssl x509 -req -in umair.csr -CA ca.crt -CAkey ca.key -out umair.crt -CAcreateserial -days 365
 curl -k https://192.168.10.11:6443/api/v1/pods --key umair.key --cert umair.crt --cacert ca.crt
 
