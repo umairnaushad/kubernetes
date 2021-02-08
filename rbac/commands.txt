@@ -3,10 +3,16 @@ Step 1: Create private key
 openssl genrsa -out umair.key 2048
 
 Step 2: Generate CSR(Certificate Signing Request)
-openssl req -new -key umair.key -sub "/CN=umair/O=finance"
+openssl req -new -key umair.key -subj "/CN=umair/O=finance" -out umair.csr
 
 Step 3: Sign certificate
+openssl x509 -req -in umair.csr -CA /etc/kubernetes/pki/ca.crt -CAkey /etc/kuber netes/pki/ca.key -out umair.crt -days 365
 openssl x509 -req -in umair.csr -CA ca.crt -CAkey ca.key -out umair.crt -days 365
 Note: ca.crt & ca.key are can be copied from /etc/kubernetes/pki/ to your local directory
 
 #################### CREATE KUBECONFIG FILE ####################
+kubectl config view
+kubectl --kubeconfig umair.kubeconfig config set-cluster kubernetes --server https://192.168.10.11:6443 --certificate-authority=ca.crt
+kubectl --kubeconfig umair.kubeconfig config set-credentials umair --client-certificate /home/umair/umair.crt  --client-key /home/umair/umair.key
+kubectl --kubeconfig umair.kubeconfig config set-context umair-kubernetes --cluster kubernetes --namespace finance --user umair
+
