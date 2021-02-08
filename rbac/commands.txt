@@ -16,7 +16,9 @@ curl -k https://192.168.10.11:6443/api/v1/pods --key umair.key --cert umair.crt 
 
 #################### CREATE CERTIFICATE FOR NEW USER ####################
 kubectl auth can-i create deployment
-kubectl auth can-i delete nodes
+kubectl auth can-i delete nodes --as dev-user
+
+kubectl api-resources --namespaced=true
 
 #################### CREATE KUBECONFIG FILE ####################
 kubectl config view
