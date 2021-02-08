@@ -1,14 +1,18 @@
+#################### CREATE CA CERTIFICATE ####################
+openssl genrsa -out ca.key 2048
+openssl req -new -key ca.key -subj "/CN= KUBERNETES-CA" -out ca.csr
+openssl x509 -req -in ca.csr -signkey ca.key -out ca.crt               # self signed
+
 #################### CREATE CERTIFICATE FOR NEW USER ####################
 Step 1: Create private key
 openssl genrsa -out umair.key 2048
 
 Step 2: Generate CSR(Certificate Signing Request)
-openssl req -new -key umair.key -subj "/CN=umair/O=finance" -out umair.csr
+openssl req -new -key umair.key -subj "/CN=kube-admin" -out umair.csr
 
 Step 3: Sign certificate
-openssl x509 -req -in umair.csr -CA /etc/kubernetes/pki/ca.crt -CAkey /etc/kuber netes/pki/ca.key -out umair.crt -days 365
-openssl x509 -req -in umair.csr -CA ca.crt -CAkey ca.key -out umair.crt -days 365
-Note: ca.crt & ca.key are can be copied from /etc/kubernetes/pki/ to your local directory
+openssl x509 -req -in umair.csr -CA ca.crt -CAkey ca.key -out umair.crt -CAcreateserial -days 365
+curl -k https://192.168.10.11:6443/api/v1/pods --key umair.key --cert umair.crt --cacert ca.crt
 
 #################### CREATE KUBECONFIG FILE ####################
 kubectl config view
