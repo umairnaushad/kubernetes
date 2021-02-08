@@ -14,6 +14,10 @@ Step 3: Sign certificate (copy ca.crt & ca.key from /etc/kubernetes/pki)
 openssl x509 -req -in umair.csr -CA ca.crt -CAkey ca.key -out umair.crt -CAcreateserial -days 365
 curl -k https://192.168.10.11:6443/api/v1/pods --key umair.key --cert umair.crt --cacert ca.crt
 
+#################### CREATE CERTIFICATE FOR NEW USER ####################
+kubectl auth can-i create deployment
+kubectl auth can-i delete nodes
+
 #################### CREATE KUBECONFIG FILE ####################
 kubectl config view
 kubectl --kubeconfig umair.kubeconfig config set-cluster kubernetes --server https://192.168.10.11:6443 --certificate-authority=ca.crt
