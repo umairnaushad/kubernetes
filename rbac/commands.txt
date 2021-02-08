@@ -1,0 +1,12 @@
+#################### CREATE CERTIFICATE FOR NEW USER ####################
+Step 1: Create private key
+openssl genrsa -out umair.key 2048
+
+Step 2: Generate CSR(Certificate Signing Request)
+openssl req -new -key umair.key -sub "/CN=umair/O=finance"
+
+Step 3: Sign certificate
+openssl x509 -req -in umair.csr -CA ca.crt -CAkey ca.key -out umair.crt -days 365
+Note: ca.crt & ca.key are can be copied from /etc/kubernetes/pki/ to your local directory
+
+#################### CREATE KUBECONFIG FILE ####################
