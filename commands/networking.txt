@@ -41,6 +41,7 @@ To configure DNS server
   arp node01                # To view MAC of node01
   ip route show default     # To view path to google.com
   netstat -nplt             # To view port used by kube-scheduler
+  cat /etc/cni/net.d/10-weave.conflist   # To identify installed cni plugin
  
  #################### LINUX BRIDGE ####################
  ip link add v-net-0 type bridge
