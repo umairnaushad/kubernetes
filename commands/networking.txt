@@ -6,6 +6,7 @@ Router ips: 192.168.1.1, 192.168.2.1
 
 Switch connects 2 machines. Switch used to connect computers in same network. 
 ip link
+ip link show docker0
 ip addr add 192.168.1.10/24 dev eth0
 ip addr add 192.168.1.11/24 dev eth0
 
@@ -37,6 +38,9 @@ To configure DNS server
   ip r
   netstat -natulp | grep kubescheduler
   netstat -natulp | grep etcd | grep LISTEN
+  arp node01                # To view MAC of node01
+  ip route show default     # To view path to google.com
+  netstat -nplt             # To view port used by kube-scheduler
  
  #################### LINUX BRIDGE ####################
  ip link add v-net-0 type bridge
