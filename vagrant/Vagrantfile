@@ -19,7 +19,7 @@ Vagrant.configure("2") do |config|
       master.vm.network "private_network", ip: "#{IP_NETWORK}#{i+10}"
       master.vm.network "forwarded_port", guest: 22, host: "#{2710 + i}"
       master.vm.provision "setup-dns", type: "shell", :path => "ubuntu/update-dns.sh"
-      #master.vm.network "public_network"
+      master.vm.network "public_network"
       master.vm.provider "virtualbox" do |vbMaster|
         vbMaster.name = "master-0#{i}"
         vbMaster.gui = false
@@ -40,9 +40,9 @@ Vagrant.configure("2") do |config|
       node.vm.hostname = "node-0#{j}"
       node.vm.box = IMAGE_NAME
       node.vm.network "private_network", ip: "#{IP_NETWORK}#{j+20}"
-      node.vm.network "forwarded_port", guest: 22, host: "#{2710 + j}"
+      node.vm.network "forwarded_port", guest: 22, host: "#{2720  + j}"
       node.vm.provision "setup-dns", type: "shell", :path => "ubuntu/update-dns.sh"
-      #node.vm.network "public_network"
+      node.vm.network "public_network"
       node.vm.provider "virtualbox" do |vbWorker|
         vbWorker.name = "node-0#{j}"
         vbWorker.gui = false
