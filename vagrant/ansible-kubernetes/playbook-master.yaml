@@ -61,6 +61,7 @@
 
   - name: Copy Join Command to Shared Data
     local_action: copy content="{{ shared_data1.stdout_lines[0] }}" dest="./shared-data-command"
+    sudo: yes
 
   - name: Auto Completion for non-root user
     shell: |
