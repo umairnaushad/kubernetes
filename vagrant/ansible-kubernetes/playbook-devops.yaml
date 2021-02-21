@@ -1,7 +1,7 @@
 ---
 - hosts: master-node
   vars:
-    DATA_PATH: /opt/kubernetes/examples/
+    DATA_PATH: /opt/kubernetes/
   become: true
   tasks:
 
