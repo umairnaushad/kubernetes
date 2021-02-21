@@ -10,6 +10,21 @@
     with_items:
       - { src: '/opt/kubernetes/examples/', dest: "{{ DATA_PATH }}" }
 
+
+#  - name: Copy YAML Files
+#    copy: src={{ item.src }} dest={{ item.dest }}
+#    with_items:
+#      - { src: 'ingress-nginx.yaml', dest: "{{ DATA_PATH }}" }
+
+#  - name: Install Nginx Ingress
+#    shell:
+#        kubectl apply
+#        -f "{{ DATA_PATH }}"ingress-nginx.yaml
+
+#  - name: 1 minute wait for initialization
+#    pause:
+#      minutes: 1
+
 #  - name: Install Prometheus & Grafana
 #    shell: |
 #      kubectl create ns monitoring
