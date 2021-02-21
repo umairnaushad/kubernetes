@@ -33,6 +33,6 @@
     shell: |
       helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
       helm search repo prometheus-community
-      help repo update
+      helm repo update
       kubectl create ns devops-monitoring
       helm install prometheus stable/prometheus-operator --namespace devops-monitoring
