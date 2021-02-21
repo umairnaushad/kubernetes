@@ -16,6 +16,8 @@ helm uninstall smiling-penguin
 helm status smiling-penguin
 
 ######################################### Install prometheus & Grafana ###########################################
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm search repo prometheus-community
 kubectl create ns monitoring-prometheus
 helm install prometheus stable/prometheus-operator --namespace monitoring-prometheus
 

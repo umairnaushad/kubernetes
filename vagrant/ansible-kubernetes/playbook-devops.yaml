@@ -13,6 +13,10 @@
   - name: Install Calico Pod Network
     command: kubectl apply -f "{{ DATA_PATH }}/admin/"calico.yaml
 
+  - name: 1 minute wait for initialization
+    pause:
+      minutes: 1
+
   - name: Install Nginx Ingress
     shell: 
         kubectl apply
@@ -25,11 +29,9 @@
         -f "{{ DATA_PATH }}/admin/"dashboard-admin.yaml
         -f "{{ DATA_PATH }}/admin/"dashboard-read-only.yaml
 
-  - name: 1 minute wait for initialization
-    pause:
-      minutes: 1
-
   - name: Install Prometheus & Grafana
     shell: |
+      helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+      helm search repo prometheus-community
       kubectl create ns monitoring
       helm install prometheus stable/prometheus-operator --namespace monitoring
