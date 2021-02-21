@@ -11,7 +11,7 @@
       - { src: '/opt/kubernetes/examples/', dest: "{{ DATA_PATH }}" }
 
   - name: Install Calico Pod Network
-    command: kubectl apply -f "{{ DATA_PATH }}/admin/"calico.yaml
+    command: kubectl apply -f "{{ DATA_PATH }}/admin/calico.yaml"
 
 #  - name: 1 minute wait for initialization
 #    pause:
@@ -20,7 +20,7 @@
   - name: Install Nginx Ingress
     shell: 
         kubectl apply
-        -f "{{ DATA_PATH }}/admin/"ingress-nginx.yaml
+        -f "{{ DATA_PATH }}/admin/ingress-nginx.yaml"
 
   - name: Install Dashboard
     shell:
@@ -35,10 +35,11 @@
       helm search repo prometheus-community
       helm repo update
       kubectl create ns devops-monitoring
-      helm install prometheus prometheus-community/kube-prometheus-stack --namespace devops-monitoring #--set prometheusOperator.admissionWebhooks.enabled=false --set prometheusOperator.admissionWebhooks.patch.enabled=false --set prometheusOperator.tlsProxy.enabled=false
+      helm install prometheus prometheus-community/kube-prometheus-stack --namespace devops-monitoring
+      #--set prometheusOperator.admissionWebhooks.enabled=false --set prometheusOperator.admissionWebhooks.patch.enabled=false --set prometheusOperator.tlsProxy.enabled=false
 
   - name: Configure NodePort for Prometheus & Grafana
     shell: |
       kubectl apply
-        -f "{{ DATA_PATH }}/monitoring/"monitoring-grafana-nodeport.yaml
-        -f "{{ DATA_PATH }}/monitoring/"monitoring-prometheus-nodeport.yaml
+        -f "{{ DATA_PATH }}/monitoring/monitoring-grafana-nodeport.yaml"
+        -f "{{ DATA_PATH }}/monitoring/monitoring-prometheus-nodeport.yaml"
