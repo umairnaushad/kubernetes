@@ -29,17 +29,17 @@
         -f "{{ DATA_PATH }}/admin/"dashboard-admin.yaml
         -f "{{ DATA_PATH }}/admin/"dashboard-read-only.yaml
 
-  - name: Install Prometheus & Grafana
-    shell: |
-      helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-      helm search repo prometheus-community
-      helm repo update
-      kubectl create ns devops-monitoring
-      helm install prometheus prometheus-community/kube-prometheus-stack --namespace devops-monitoring
-      #--set prometheusOperator.admissionWebhooks.enabled=false --set prometheusOperator.admissionWebhooks.patch.enabled=false --set prometheusOperator.tlsProxy.enabled=false
+#  - name: Install Prometheus & Grafana
+#    shell: |
+#      helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+#      helm search repo prometheus-community
+#      helm repo update
+#      kubectl create ns devops-monitoring
+#      helm install prometheus prometheus-community/kube-prometheus-stack --namespace devops-monitoring
+#      #--set prometheusOperator.admissionWebhooks.enabled=false --set prometheusOperator.admissionWebhooks.patch.enabled=false --set prometheusOperator.tlsProxy.enabled=false
 
   - name: Configure NodePort for Prometheus & Grafana
-    shell: |
+    shell:
       kubectl apply
         -f "{{ DATA_PATH }}/monitoring/monitoring-grafana-nodeport.yaml"
         -f "{{ DATA_PATH }}/monitoring/monitoring-prometheus-nodeport.yaml"
