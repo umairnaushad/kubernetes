@@ -27,34 +27,6 @@
       sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
       sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
-  - name: Copy YAML files
-    copy: src={{ item.src }} dest={{ item.dest }}
-    with_items:
-      - { src: 'calico.yaml', dest: "{{ DATA_PATH }}" }
-      - { src: 'dashboard.yaml', dest: "{{ DATA_PATH }}" }
-      - { src: 'dashboard-admin.yaml', dest: "{{ DATA_PATH }}" }
-      - { src: 'dashboard-read-only.yaml', dest: "{{ DATA_PATH }}" }
-      - { src: 'dashboard-ingress.yaml', dest: "{{ DATA_PATH }}" }
-      - { src: 'ingress-nginx.yaml', dest: "{{ DATA_PATH }}" }
-
-  - name: 1 minute wait for initialization
-    pause:
-      minutes: 1
-
-  - name: Install Calico Pod Network
-    command: kubectl apply -f "{{ DATA_PATH }}"calico.yaml
-
-  - name: 1 minute wait for initialization
-    pause:
-      minutes: 1
-
-  - name: Install Dashboard
-    shell:
-        kubectl apply
-        -f "{{ DATA_PATH }}"dashboard.yaml
-        -f "{{ DATA_PATH }}"dashboard-admin.yaml
-        -f "{{ DATA_PATH }}"dashboard-read-only.yaml
-
   - name: Install Helm
     shell: |
       curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -
@@ -91,7 +63,3 @@
       src: /etc/kubernetes/admin.conf
       dest: /tmp/admin.conf
       flat: yes
-
-  - name: 1 minute wait for initialization
-    pause:
-      minutes: 1
