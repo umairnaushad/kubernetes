@@ -3,7 +3,6 @@
   vars:
     MASTER_IP: 192.168.10.11
     NON_ROOT_USER: vagrant
-    DATA_PATH: /opt/kubernetes/
   become: true
   tasks:
 

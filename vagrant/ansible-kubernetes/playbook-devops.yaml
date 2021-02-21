@@ -10,8 +10,8 @@
     with_items:
       - { src: '/opt/kubernetes/examples/', dest: "{{ DATA_PATH }}" }
 
-  - name: Install Calico Pod Network
-    command: kubectl apply -f "{{ DATA_PATH }}admin/"calico.yaml
+#  - name: Install Calico Pod Network
+#    command: kubectl apply -f "{{ DATA_PATH }}admin/"calico.yaml
 
 #  - name: Copy YAML Files
 #    copy: src={{ item.src }} dest={{ item.dest }}
