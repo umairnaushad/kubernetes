@@ -35,7 +35,7 @@
       helm search repo prometheus-community
       helm repo update
       kubectl create ns devops-monitoring
-      helm install prometheus prometheus-community/kube-prometheus-stack --namespace devops-monitoring
+      helm install prometheus prometheus-community/kube-prometheus-stack --namespace devops-monitoring #--set prometheusOperator.admissionWebhooks.enabled=false --set prometheusOperator.admissionWebhooks.patch.enabled=false --set prometheusOperator.tlsProxy.enabled=false
 
   - name: Configure NodePort for Prometheus & Grafana
     shell: |
