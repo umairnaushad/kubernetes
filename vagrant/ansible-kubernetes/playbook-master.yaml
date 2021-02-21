@@ -63,3 +63,5 @@
       src: /etc/kubernetes/admin.conf
       dest: /tmp/admin.conf
       flat: yes
+    become: yes
+    become_user: "root"
