@@ -1,9 +1,10 @@
 ---
 - hosts: master-node
-  vars:
+  vars:    
     MASTER_IP: 192.168.10.11
     POD_CIDR: 10.244.0.0/16
     NON_ROOT_USER: vagrant
+    DATA_PATH: /opt/kubernetes/examples
   become: true
   tasks:
 
@@ -64,3 +65,27 @@
       flat: yes
     become: yes
     become_user: "root"
+
+  - name: Copy YAML Files
+    copy: src={{ item.src }} dest={{ item.dest }}
+    with_items:
+      - { src: '/opt/kubernetes/examples/', dest: "{{ DATA_PATH }}" }
+
+  - name: Install Calico Pod Network
+    command: kubectl apply -f "{{ DATA_PATH }}/admin/calico.yaml"
+
+  - name: 1 minute wait for initialization
+    pause:
+      minutes: 1
+
+  - name: Install Nginx Ingress
+    shell: 
+        kubectl apply
+        -f "{{ DATA_PATH }}/admin/ingress-nginx.yaml"
+
+  - name: Install Dashboard
+    shell:
+        kubectl apply
+        -f "{{ DATA_PATH }}/admin/"dashboard.yaml
+        -f "{{ DATA_PATH }}/admin/"dashboard-admin.yaml
+        -f "{{ DATA_PATH }}/admin/"dashboard-read-only.yaml
