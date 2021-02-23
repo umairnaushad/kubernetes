@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sonarqube-dep
+  namespace: devops-sonarqube
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sonarqube
+  template:
+    metadata:
+      labels:
+        app: sonarqube
+    spec:
+      containers:
+        - name: sonarqube
+          image: sonarqube/7.9.5-community
+          env:
+          - name: "SONARQUBE_JDBC_USERNAME"
+            value: "root"  #Put your db username
+          - name: "SONARQUBE_JDBC_URL"
+            value: "jdbc:mysql://<My-IP>:3306/sonar?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true" #DB URL
+          - name: "SONARQUBE_JDBC_PASSWORD"
+            value: "root"
+          resources: 
+            requests:
+              cpu: "500m"
+              memory: "1000Mi"
+            limits:
+              cpu: "1000m"
+              memory: "2000Mi"
+          ports:
+          - containerPort: 9000
+            protocol: TCP
+          volumeMounts:
+          - mountPath: "/opt/sonarqube/data/"
+            name: sonar-data
+          - mountPath: "/opt/sonarqube/extensions/"
+            name: sonar-extensions
+      volumes:
+      - name: sonar-data
+        persistentVolumeClaim:
+          claimName: sonar-data
+      - name: sonar-extensions
+        persistentVolumeClaim:
+          claimName: sonar-extensions
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sonarqube-svc
+  namespace: devops-sonarqube
+spec:
+  selector:
+    app: nexus
+  type: NodePort
+  ports:
+    - name: http
+      port: 9000
+      targetPort: 9000
+      nodePort: 32002
