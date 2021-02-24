@@ -40,12 +40,12 @@ spec:
               key: SONARQUBE_POSTGRES_DB
         - name: POSTGRES_USER
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               name: postgres-config
               key: SONARQUBE_POSTGRES_USER
         - name: POSTGRES_PASSWORD
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               name: postgres-config
               key: SONARQUBE_POSTGRES_PASSWORD
         ports:
