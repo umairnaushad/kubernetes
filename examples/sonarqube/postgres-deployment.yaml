@@ -6,7 +6,7 @@ metadata:
   namespace: devops-sonarqube
 spec:
   selector:
-    app: nexus
+    app: postgres
   type: ClusterIP
   ports:
   - name: http
