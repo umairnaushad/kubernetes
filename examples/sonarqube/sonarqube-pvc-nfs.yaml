@@ -1,7 +1,20 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: pvc-sonar
+  name: pvc-sonar-data
+  namespace: devops-sonarqube
+spec:
+  storageClassName: nfs-sc
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-sonar-extensions
   namespace: devops-sonarqube
 spec:
   storageClassName: nfs-sc

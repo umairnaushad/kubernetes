@@ -6,6 +6,6 @@ metadata:
   labels:
     app: postgres
 data:
-  POSTGRES_DB: postgresdb
-  POSTGRES_USER: postgresadmin
-  POSTGRES_PASSWORD: admin123
+  SONARQUBE_POSTGRES_DB: sonarqube
+  SONARQUBE_POSTGRES_USER: postgresadmin
+  SONARQUBE_POSTGRES_PASSWORD: admin123

@@ -17,12 +17,18 @@ spec:
         - name: sonarqube
           image: sonarqube/7.9.5-community
           env:
-          - name: "SONARQUBE_JDBC_USERNAME"
-            value: "root"  #Put your db username
           - name: "SONARQUBE_JDBC_URL"
             value: "jdbc:mysql://<My-IP>:3306/sonar?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true" #DB URL
+          - name: "SONARQUBE_JDBC_USERNAME"
+            valueFrom:
+              configMapKeyRef:
+                name: postgres-config
+                key: POSTGRES_USER
           - name: "SONARQUBE_JDBC_PASSWORD"
-            value: "root"
+            valueFrom:
+              configMapKeyRef:
+                key: postgres-config
+                value: POSTGRES_PASSWORD
           resources: 
             requests:
               cpu: "500m"

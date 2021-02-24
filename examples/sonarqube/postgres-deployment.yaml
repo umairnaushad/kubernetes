@@ -1,9 +1,25 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-svc
+  namespace: devops-sonarqube
+spec:
+  selector:
+    app: nexus
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 5432
+      targetPort: 5432
+---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: postgres-dep
   namespace: devops-sonarqube
 spec:
+  serviceName: postgres-svc
   replicas: 1
   selector:
     matchLabels:
@@ -16,28 +32,30 @@ spec:
       containers:
       - name: postgres
         image: postgres:12.6
-        ports:
-        - containerPort: 5432
         env:
         - name: POSTGRES_DB
           valueFrom:
             configMapKeyRef:
               name: postgres-config
-              key: POSTGRES_DB
+              key: SONARQUBE_POSTGRES_DB
+          value: sonarqube
         - name: POSTGRES_USER
           valueFrom:
             configMapKeyRef:
               name: postgres-config
-              key: POSTGRES_USER
+              key: SONARQUBE_POSTGRES_USER
         - name: POSTGRES_PASSWORD
           valueFrom:
             configMapKeyRef:
-              name: postgres-config
-              key: POSTGRES_PASSWORD
+              key: postgres-config
+              value: SONARQUBE_POSTGRES_PASSWORD
+        ports:
+        - containerPort: 5432
+          protocol: TCP
         volumeMounts:
-          - mountPath: /var/lib/postgresql/data
-            name: postgres
-      volumes:
-        - name: postgres
-          persistentVolumeClaim:
-            claimName: pvc-postgres
+        - mountPath: /var/lib/postgresql/data
+          name: postgres
+    volumes:
+      - name: postgres
+        persistentVolumeClaim:
+          claimName: pvc-postgres
