@@ -28,8 +28,8 @@ spec:
         - name: "SONARQUBE_JDBC_PASSWORD"
           valueFrom:
             configMapKeyRef:
-              key: postgres-config
-              value: POSTGRES_PASSWORD
+              name: postgres-config
+              key: POSTGRES_PASSWORD
         resources: 
           requests:
             cpu: "500m"
