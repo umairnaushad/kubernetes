@@ -9,9 +9,9 @@ spec:
     app: nexus
   type: ClusterIP
   ports:
-    - name: http
-      port: 5432
-      targetPort: 5432
+  - name: http
+    port: 5432
+    targetPort: 5432
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -55,7 +55,7 @@ spec:
         volumeMounts:
         - mountPath: /var/lib/postgresql/data
           name: postgres
-    volumes:
+      volumes:
       - name: postgres
         persistentVolumeClaim:
           claimName: pvc-postgres
