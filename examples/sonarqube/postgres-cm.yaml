@@ -5,4 +5,3 @@ metadata:
   namespace: devops-sonarqube
 data:
   SONARQUBE_POSTGRES_DB: sonardb
-  SONARQUBE_POSTGRES_USER: admin
