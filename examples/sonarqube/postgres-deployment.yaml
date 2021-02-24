@@ -45,8 +45,8 @@ spec:
               key: SONARQUBE_POSTGRES_USER
         - name: POSTGRES_PASSWORD
           valueFrom:
-            secretKeyRef:
-              name: postgres-secret
+            configMapKeyRef:
+              name: postgres-config
               key: SONARQUBE_POSTGRES_PASSWORD
         ports:
         - containerPort: 5432

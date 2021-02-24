@@ -6,3 +6,4 @@ metadata:
 data:
   SONARQUBE_POSTGRES_DB: sonardb
   SONARQUBE_POSTGRES_USER: admin
+  SONARQUBE_POSTGRES_PASSWORD: admin
