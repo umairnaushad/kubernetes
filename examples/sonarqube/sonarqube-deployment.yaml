@@ -20,12 +20,12 @@ spec:
         - name: SONARQUBE_JDBC_URL
           value: "jdbc:postgresql://postgres-svc:5432/sonardb"
           #value: "jdbc:mysql://<My-IP>:3306/sonar?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true" #DB URL
-        - name: "SONARQUBE_JDBC_USERNAME"
+        - name: SONARQUBE_JDBC_USERNAME
           valueFrom:
             configMapKeyRef:
               name: postgres-config
               key: POSTGRES_USER
-        - name: "SONARQUBE_JDBC_PASSWORD"
+        - name: SONARQUBE_JDBC_PASSWORD
           valueFrom:
             configMapKeyRef:
               name: postgres-config
