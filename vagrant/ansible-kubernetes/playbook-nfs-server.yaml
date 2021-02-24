@@ -26,7 +26,7 @@
   - name: Grant NFS Share Access to Client Systems
     ansible.builtin.lineinfile:
       path: /etc/exports
-      line: '{{ NFS_SHARE }} {{ NODE_CIDR }}(rw,sync,no_subtree_check)'
+      line: '{{ NFS_SHARE }} {{ NODE_CIDR }}(rw,sync,no_subtree_check,no_root_squash)'
       create: yes
 
   - name: Export NFS Share Directory
