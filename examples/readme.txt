@@ -3,3 +3,7 @@
 32091   grafana
 32001   nexus
 32002   sonarqube
+
+######################################### COMMANDS #########################################
+echo -n 'admin' | base64
+echo 'YWRtaW4=' | base64 --decode
