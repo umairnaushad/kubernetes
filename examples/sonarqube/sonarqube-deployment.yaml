@@ -21,7 +21,7 @@ spec:
           value: "jdbc:postgresql://postgres-svc:5432/sonardb"
         - name: SONARQUBE_JDBC_USERNAME
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               name: postgres-secret
               key: SONARQUBE_POSTGRES_USER
         - name: SONARQUBE_JDBC_PASSWORD
