@@ -1,5 +1,5 @@
 ---
-- hosts: master-node #nfs-server
+- hosts: master-node,worker-node
   vars:
     DATA_PATH: /opt/kubernetes/examples/
   become: true
