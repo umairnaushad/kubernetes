@@ -24,12 +24,12 @@ spec:
           valueFrom:
             configMapKeyRef:
               name: postgres-config
-              key: POSTGRES_USER
+              key: SONARQUBE_POSTGRES_USER
         - name: SONARQUBE_JDBC_PASSWORD
           valueFrom:
             configMapKeyRef:
               name: postgres-config
-              key: POSTGRES_PASSWORD
+              key: SONARQUBE_POSTGRES_PASSWORD
         resources: 
           requests:
             cpu: "500m"
