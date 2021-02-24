@@ -60,7 +60,7 @@ metadata:
   namespace: devops-sonarqube
 spec:
   selector:
-    app: nexus
+    app: sonarqube
   type: NodePort
   ports:
   - name: http

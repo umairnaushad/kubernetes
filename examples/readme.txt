@@ -1,7 +1,8 @@
 ######################################### PORTS #########################################
 32090   prometheus
 32091   grafana
-32000   nexus
+32001   nexus
+32002   sonarqube
 
 ################################# CHANGE DEFUALT NAMESPACE################################
 kubectl config set-context --current --namespace=devops-sonarqube
