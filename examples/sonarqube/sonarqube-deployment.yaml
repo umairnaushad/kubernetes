@@ -48,10 +48,10 @@ spec:
       volumes:
       - name: sonar-data
         persistentVolumeClaim:
-          claimName: sonar-data
+          claimName: pvc-sonar-data
       - name: sonar-extensions
         persistentVolumeClaim:
-          claimName: sonar-extensions
+          claimName: pvc-sonar-extensions
 ---
 apiVersion: v1
 kind: Service
