@@ -38,7 +38,6 @@ spec:
             configMapKeyRef:
               name: postgres-config
               key: SONARQUBE_POSTGRES_DB
-          value: sonarqube
         - name: POSTGRES_USER
           valueFrom:
             configMapKeyRef:
