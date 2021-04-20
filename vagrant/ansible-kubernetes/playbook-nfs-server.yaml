@@ -47,6 +47,7 @@
     shell:
         kubectl apply
         -f "{{ DATA_PATH }}"nfs-dynamic-provisioner/nfs-namespace.yaml
-        -f "{{ DATA_PATH }}"nfs-dynamic-provisioner/nfs-class.yaml
+        -f "{{ DATA_PATH }}"nfs-dynamic-provisioner/nfs-storageclass.yaml
+        -f "{{ DATA_PATH }}"nfs-dynamic-provisioner/nfs-sc.yaml
         -f "{{ DATA_PATH }}"nfs-dynamic-provisioner/nfs-rbac.yaml
         -f "{{ DATA_PATH }}"nfs-dynamic-provisioner/nfs-deployment.yaml
