@@ -41,13 +41,13 @@
   - name: Copy YAML Files
     copy: src={{ item.src }} dest={{ item.dest }}
     with_items:
-      - { src: '/opt/kubernetes/examples/', dest: "{{ DATA_PATH }}" }
+      - { src: '/opt/kubernetes/examples/nfs-dynamic-provisioner/', dest: "{{ DATA_PATH }}" }
 
   - name: Install NFS Provisioner
     shell:
         kubectl apply
-        -f "{{ DATA_PATH }}"nfs-dynamic-provisioner/nfs-namespace.yaml
-        -f "{{ DATA_PATH }}"nfs-dynamic-provisioner/nfs-storageclass.yaml
-        -f "{{ DATA_PATH }}"nfs-dynamic-provisioner/nfs-sc.yaml
-        -f "{{ DATA_PATH }}"nfs-dynamic-provisioner/nfs-rbac.yaml
-        -f "{{ DATA_PATH }}"nfs-dynamic-provisioner/nfs-deployment.yaml
+        -f "{{ DATA_PATH }}"nfs-namespace.yaml
+        -f "{{ DATA_PATH }}"nfs-storageclass.yaml
+        -f "{{ DATA_PATH }}"nfs-sc.yaml
+        -f "{{ DATA_PATH }}"nfs-rbac.yaml
+        -f "{{ DATA_PATH }}"nfs-deployment.yaml
