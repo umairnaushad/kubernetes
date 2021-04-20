@@ -1,7 +1,7 @@
 https://ittroubleshooter.in/install-and-deploy-sonarqube-in-kubernates-cluster/
 
 ######################################### Verify Postgres Installation  #########################################
-kubectl -n devops-sonarqube exec postgres-sts-0 -it -- /bin/bash
+kubectl exec postgres-sts-0 -it -- /bin/bash
 psql -W sonardb -U admin
 \l
 \q

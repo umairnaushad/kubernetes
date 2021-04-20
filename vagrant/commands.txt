@@ -1,0 +1,10 @@
+############################## VAGRANT ##############################
+vagrant destroy
+vagrant up
+vagrant status
+vagrant ssh master-01
+
+############################## ANSIBLE ##############################
+ansible -i hosts all -m ping
+ansible all -m ping
+ansible-playbook playbook-common.yaml
