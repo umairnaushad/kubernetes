@@ -3,7 +3,7 @@
   vars:
     NFS_SHARE: /mnt/k8s-data
     NODE_CIDR: 192.168.10.0/24
-    DATA_PATH: /opt/kubernetes/examples/
+    DATA_PATH: /opt/kubernetes/examples/nfs-dynamic-provisioner/
   become: true
   tasks:
 
