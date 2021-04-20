@@ -1,7 +1,6 @@
 ---
 - hosts: worker-node
   vars:
-    MASTER_IP: 192.168.10.11
     NON_ROOT_USER: vagrant
   become: true
   tasks:
@@ -67,3 +66,7 @@
       sudo sysctl -w fs.file-max=65536
       ulimit -n 65536
     #  ulimit -u 4096
+
+  - name: 3 minute wait for initialization
+    pause:
+      minutes: 3

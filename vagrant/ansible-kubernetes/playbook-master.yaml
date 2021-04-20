@@ -74,9 +74,9 @@
   - name: Install Calico Pod Network
     command: kubectl apply -f "{{ DATA_PATH }}/admin/calico.yaml"
 
-  - name: 1 minute wait for initialization
+  - name: 3 minute wait for initialization
     pause:
-      minutes: 1
+      minutes: 3
 
   - name: Install Nginx Ingress
     shell: 
