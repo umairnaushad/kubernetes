@@ -1,0 +1,6 @@
+---
+- import_playbook: playbook-common.yaml
+- import_playbook: playbook-master.yaml
+- import_playbook: playbook-worker.yaml
+- import_playbook: playbook-nfs-server.yaml
+- import_playbook: playbook-devops.yaml
