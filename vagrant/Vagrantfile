@@ -24,7 +24,7 @@ Vagrant.configure("2") do |config|
         vbMaster.name = "master-0#{i}"
         vbMaster.gui = false
         vbMaster.memory = "2048"
-        vbMaster.cpus = "3"
+        vbMaster.cpus = "1"
       end
       #master.vm.provision "ansible" do |ansible|
       #  ansible.playbook = "ansible-kubernetes/playbook-common.yaml"
