@@ -1,10 +1,8 @@
-kind: PersistentVolumeClaim
 apiVersion: v1
+kind: PersistentVolumeClaim
 metadata:
   name: pvc-nexus
-  namespace: devops-nexus
-#  annotations:
-#    volume.beta.kubernetes.io/storage-class: "nfs-sc"
+  namespace: devops
 spec:
   storageClassName: nfs-sc
   accessModes:

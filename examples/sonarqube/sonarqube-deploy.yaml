@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: sonarqube-dep
-  namespace: devops-sonarqube
+  namespace: devops
 spec:
   replicas: 1
   selector:
@@ -51,18 +51,3 @@ spec:
       - name: sonar-extensions
         persistentVolumeClaim:
           claimName: pvc-sonar-extensions
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: sonarqube-svc
-  namespace: devops-sonarqube
-spec:
-  selector:
-    app: sonarqube
-  type: NodePort
-  ports:
-  - name: http
-    port: 9000
-    targetPort: 9000
-    nodePort: 32002

@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nexus-dep
-  namespace: devops-nexus
+  namespace: devops
 spec:
   replicas: 1
   selector:
@@ -35,18 +35,3 @@ spec:
         - name: nexus-data
           persistentVolumeClaim:
             claimName: pvc-nexus
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: nexus-svc
-  namespace: devops-nexus
-spec:
-  selector:
-    app: nexus-server
-  type: NodePort
-  ports:
-    - name: http
-      port: 8081
-      targetPort: 8081
-      nodePort: 32001
