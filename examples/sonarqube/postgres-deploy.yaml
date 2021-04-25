@@ -21,17 +21,17 @@ spec:
         - name: POSTGRES_DB
           valueFrom:
             configMapKeyRef:
-              name: postgres-configmap
+              name: sonarqube-postgres-configmap
               key: SONARQUBE_POSTGRES_DB
         - name: POSTGRES_USER
           valueFrom:
             secretKeyRef:
-              name: postgres-secret
+              name: sonarqube-postgres-secret
               key: SONARQUBE_POSTGRES_USER
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: postgres-secret
+              name: sonarqube-postgres-secret
               key: SONARQUBE_POSTGRES_PASSWORD
         ports:
         - containerPort: 5432
