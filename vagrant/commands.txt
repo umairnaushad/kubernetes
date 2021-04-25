@@ -3,6 +3,7 @@ vagrant destroy
 vagrant up
 vagrant status
 vagrant ssh master-01
+vagrant reload
 
 ############################## ANSIBLE ##############################
 ansible -i hosts all -m ping
