@@ -5,4 +5,5 @@ metadata:
   name: nfs-sc
 provisioner: nfs.nginx.dynamic # or choose another name, must match deployment's env PROVISIONER_NAME'
 parameters:
-  archiveOnDelete: "true"
+  archiveOnDelete: "false"
+reclaimPolicy: Retain
