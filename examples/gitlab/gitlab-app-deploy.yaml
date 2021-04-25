@@ -75,7 +75,7 @@ spec:
           httpGet:
             path: /users/sign_in
             port: 80
-          initialDelaySeconds: 180
+          initialDelaySeconds: 90
           timeoutSeconds: 15
         readinessProbe:
           httpGet:
