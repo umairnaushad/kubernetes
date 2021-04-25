@@ -22,17 +22,17 @@ spec:
           valueFrom:
             configMapKeyRef:
               name: gitlab-postgres-configmap
-              key: SONARQUBE_POSTGRES_DB
+              key: GITLAB_POSTGRES_DB
         - name: POSTGRES_USER
           valueFrom:
             secretKeyRef:
               name: gitlab-postgres-secret
-              key: SONARQUBE_POSTGRES_USER
+              key: GITLAB_POSTGRES_USER
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
               name: gitlab-postgres-secret
-              key: SONARQUBE_POSTGRES_PASSWORD
+              key: GITLAB_POSTGRES_PASSWORD
         ports:
         - containerPort: 5432
           protocol: TCP
