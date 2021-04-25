@@ -1,0 +1,57 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitlab-redis-dep
+  namespace: devops
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gitlab-redis
+  template:
+    metadata:
+      labels:
+        app: gitlab-redis
+    spec:
+      containers:
+      - name: redis
+        image: redis:6.2.1
+        resources: 
+          requests:
+            cpu: "500m"
+            memory: "1Gi"
+          limits:
+            cpu: "1000m"
+            memory: "2Gi"
+        ports:
+        - name: redis
+          containerPort: 6379
+        livenessProbe:
+          exec:
+            command:
+            - redis-cli
+            - ping
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
+        readinessProbe:
+          exec:
+            command:
+            - redis-cli
+            - ping
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+        volumeMounts:
+        - mountPath: /data
+          name: redis-data
+      volumes:
+      - name: redis-data
+        persistentVolumeClaim:
+          claimName: pvc-gitlab-redis
+      nodeSelector:
+        nodeType: sdlc
+      tolerations:
+        - key: node-role.eres
+          operator: Equal
+          value: sdlc
+          effect: NoSchedule

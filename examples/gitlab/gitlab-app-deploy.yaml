@@ -1,0 +1,102 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitlab-dep
+  namespace: devops
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gitlab
+  template:
+    metadata:
+      labels:
+        app: gitlab
+    spec:
+      serviceAccountName: gitlab-sa
+      containers:
+      - name: gitlab
+        image: gitlab/gitlab-ce:13.10.2-ce.0
+        imagePullPolicy: Always
+        resources: 
+          requests:
+            cpu: "1000m"
+            memory: "2Gi"
+          limits:
+            cpu: "2000m"
+            memory: "4Gi"
+        env:
+        - name: GITLAB_SECRETS_DB_KEY_BASE
+          value: P26qS5+Csz50Dkd0DLM2oN9owVBFg0PB
+        - name: GITLAB_SECRETS_SECRET_KEY_BASE
+          value: KVaMTKLAIElEp0s4L02c1O9JCP0Rfapb
+        - name: GITLAB_SECRETS_OTP_KEY_BASE
+          value: nXJJ358Qnci0yF9qpAsLrF2vImaoFR03
+
+        - name: GITLAB_ROOT_PASSWORD
+          value: rootpass
+        - name: GITLAB_ROOT_EMAIL
+          value: root@example.com
+
+        - name: GITLAB_HOST
+          value: git.devops.com
+        - name: GITLAB_PORT
+          value: "80"
+        - name: GITLAB_SSH_HOST
+          value: "ssh-git.devops.com"
+        - name: GITLAB_SSH_PORT
+          value: "1022"
+
+        - name: GITLAB_OMNIBUS_CONFIG
+          value: |
+            gitlab_rails['time_zone'] = 'America/New_York'
+            postgresql['enable'] = false
+            gitlab_rails['db_username'] = "admin"
+            gitlab_rails['db_password'] = "admin"
+            gitlab_rails['db_host'] = "postgres-gitlab-nodeport-svc" #
+            gitlab_rails['db_port'] = "5432"
+            gitlab_rails['db_database'] = "pg_gitlabdb_production"
+            gitlab_rails['db_adapter'] = 'postgresql'
+            gitlab_rails['db_encoding'] = 'utf8'
+            redis['enable'] = false
+            gitlab_rails['redis_host'] = 'redis-gitlab-svc'
+            gitlab_rails['redis_port'] = '6379'
+#            gitlab_rails['gitlab_shell_ssh_port'] = 30022
+#            external_url 'http://gitlab.example.com:30080'
+
+        ports:
+        - name: http
+          containerPort: 80
+        - name: https
+          containerPort: 443
+        - name: ssh
+          containerPort: 22
+#        livenessProbe:
+#          httpGet:
+#            path: /users/sign_in
+#            port: 80
+#          initialDelaySeconds: 180
+#          timeoutSeconds: 15
+#        readinessProbe:
+#          httpGet:
+#            path: /users/sign_in
+#            port: 80
+#          initialDelaySeconds: 15
+#          timeoutSeconds: 1
+        volumeMounts:
+        - mountPath: /var/opt/gitlab
+          name: gitlab-app-data
+        - mountPath: /var/log/gitlab
+          name: gitlab-log-data
+        - mountPath: /etc/gitlab
+          name: gitlab-config-data
+      volumes:
+      - name: gitlab-app-data
+        persistentVolumeClaim:
+          claimName: gitlab-app-data-pvc
+      - name: gitlab-log-data
+        persistentVolumeClaim:
+          claimName: gitlab-log-data-pvc
+      - name: gitlab-config-data
+        persistentVolumeClaim:
+          claimName: gitlab-config-data-pvc

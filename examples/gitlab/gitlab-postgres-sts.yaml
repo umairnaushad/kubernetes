@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: sonarqube-postgres-sts
+  name: gitlab-postgres-sts
   namespace: devops
 spec:
-  serviceName: sonarqube-postgres-svc
+  serviceName: gitlab-postgres-svc
   replicas: 1
   selector:
     matchLabels:
-      app: sonarqube-postgres
+      app: gitlab-postgres
   template:
     metadata:
       labels:
-        app: sonarqube-postgres
+        app: gitlab-postgres
     spec:
       containers:
       - name: postgres
@@ -21,25 +21,25 @@ spec:
         - name: POSTGRES_DB
           valueFrom:
             configMapKeyRef:
-              name: sonarqube-postgres-configmap
+              name: gitlab-postgres-configmap
               key: SONARQUBE_POSTGRES_DB
         - name: POSTGRES_USER
           valueFrom:
             secretKeyRef:
-              name: sonarqube-postgres-secret
+              name: gitlab-postgres-secret
               key: SONARQUBE_POSTGRES_USER
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: sonarqube-postgres-secret
+              name: gitlab-postgres-secret
               key: SONARQUBE_POSTGRES_PASSWORD
         ports:
         - containerPort: 5432
           protocol: TCP
         volumeMounts:
         - mountPath: /var/lib/postgresql/data
-          name: postgres
+          name: gitlab-postgres
       volumes:
-      - name: postgres
+      - name: gitlab-postgres
         persistentVolumeClaim:
-          claimName: sonarqube-postgres-pvc
+          claimName: gitlab-postgres-pvc

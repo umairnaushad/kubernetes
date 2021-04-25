@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: sonarqube-postgres-sts
+  namespace: devops
+spec:
+  serviceName: sonarqube-postgres-svc
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sonarqube-postgres
+  template:
+    metadata:
+      labels:
+        app: sonarqube-postgres
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:12.6
+        env:
+        - name: POSTGRES_DB
+          valueFrom:
+            configMapKeyRef:
+              name: sonarqube-postgres-configmap
+              key: SONARQUBE_POSTGRES_DB
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: sonarqube-postgres-secret
+              key: SONARQUBE_POSTGRES_USER
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sonarqube-postgres-secret
+              key: SONARQUBE_POSTGRES_PASSWORD
+        ports:
+        - containerPort: 5432
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: sonarqube-postgres
+      volumes:
+      - name: sonarqube-postgres
+        persistentVolumeClaim:
+          claimName: sonarqube-postgres-pvc
