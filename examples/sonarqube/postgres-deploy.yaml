@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: postgres-sts
+  name: sonarqube-postgres-sts
   namespace: devops
 spec:
-  serviceName: postgres-svc
+  serviceName: sonarqube-postgres-svc
   replicas: 1
   selector:
     matchLabels:
-      app: postgres
+      app: sonarqube-postgres
   template:
     metadata:
       labels:
-        app: postgres
+        app: sonarqube-postgres
     spec:
       containers:
       - name: postgres
@@ -42,4 +42,4 @@ spec:
       volumes:
       - name: postgres
         persistentVolumeClaim:
-          claimName: pvc-postgres
+          claimName: sonarqube-postgres-pvc

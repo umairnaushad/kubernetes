@@ -1,7 +1,7 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: pvc-sonar-data
+  name: sonarqube-sonar-data-pvc
   namespace: devops
 spec:
   storageClassName: nfs-sc
@@ -14,7 +14,7 @@ spec:
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: pvc-sonar-extensions
+  name: sonarqube-sonar-extensions-pvc
   namespace: devops
 spec:
   storageClassName: nfs-sc

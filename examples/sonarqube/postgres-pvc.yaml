@@ -1,7 +1,7 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: pvc-postgres
+  name: sonarqube-postgres-pvc
   namespace: devops
 spec:
   storageClassName: nfs-sc
