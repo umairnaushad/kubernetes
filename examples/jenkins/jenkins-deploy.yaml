@@ -3,17 +3,15 @@ kind: Deployment
 metadata:
   name: jenkins
   namespace: devops
-  labels:
-    app: jenkins
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: jenkins
+      app: jenkins-server
   template:
     metadata:
       labels:
-        app: jenkins
+        app: jenkins-server
     spec:
       serviceAccountName: jenkins
       containers:
