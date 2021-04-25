@@ -47,7 +47,7 @@ spec:
       volumes:
       - name: sonar-data
         persistentVolumeClaim:
-          claimName: sonarqube-sonar-data-pvc
+          claimName: sonarqube-data-pvc
       - name: sonar-extensions
         persistentVolumeClaim:
-          claimName: sonarqube-sonar-extensions-pvc
+          claimName: sonarqube-extensions-pvc
