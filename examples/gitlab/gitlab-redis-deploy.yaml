@@ -47,11 +47,4 @@ spec:
       volumes:
       - name: redis-data
         persistentVolumeClaim:
-          claimName: pvc-gitlab-redis
-      nodeSelector:
-        nodeType: sdlc
-      tolerations:
-        - key: node-role.eres
-          operator: Equal
-          value: sdlc
-          effect: NoSchedule
+          claimName: gitlab-redis-pvc
