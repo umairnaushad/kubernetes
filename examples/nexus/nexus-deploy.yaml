@@ -28,6 +28,21 @@ spec:
             limits:
               cpu: "1000m"
               memory: "2000Mi"
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 60
+            periodSeconds: 5
+          livenessProbe:
+            failureThreshold: 20
+            httpGet:
+              path: /
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 5
           volumeMounts:
             - name: nexus-data
               mountPath: /nexus-data
