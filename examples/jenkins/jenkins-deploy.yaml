@@ -17,6 +17,9 @@ spec:
       containers:
       - name: jenkins
         image: jenkins/jenkins:2.263.2-lts-alpine
+        restartPolicy: Always
+        securityContext:
+          runAsUser: 0
         env:
         - name: JAVA_OPTS
           value: -Xmx2048m -Dhudson.slaves.NodeProvisioner.MARGIN=50 -Dhudson.slaves.NodeProvisioner.MARGIN0=0.85
@@ -34,12 +37,23 @@ spec:
           requests:
             cpu: "1"
             memory: 1Gi 
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          failureThreshold: 5
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          failureThreshold: 5
         volumeMounts:
         - mountPath: /var/jenkins_home
           name: jenkins
-      restartPolicy: Always
-      securityContext:
-        runAsUser: 0
       terminationGracePeriodSeconds: 30
       volumes:
       - name: jenkins
