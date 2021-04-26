@@ -26,10 +26,8 @@ spec:
         ports:
         - name: http-port
           containerPort: 8080
-          protocol: TCP
         - name: jnlp-port
           containerPort: 50000
-          protocol: TCP
         resources:
           limits:
             cpu: "1"
@@ -41,16 +39,16 @@ spec:
           httpGet:
             path: /
             port: 8080
-          initialDelaySeconds: 60
+          initialDelaySeconds: 120
           periodSeconds: 10
-          failureThreshold: 5
+          failureThreshold: 6
         livenessProbe:
           httpGet:
             path: /
             port: 8080
-          initialDelaySeconds: 30
+          initialDelaySeconds: 120
           periodSeconds: 10
-          failureThreshold: 5
+          failureThreshold: 6
         volumeMounts:
         - mountPath: /var/jenkins_home
           name: jenkins
