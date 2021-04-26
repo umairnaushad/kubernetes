@@ -1,7 +1,12 @@
 https://ittroubleshooter.in/install-and-deploy-sonarqube-in-kubernates-cluster/
 
-######################################### Verify Postgres Installation  #########################################
+######################################### Verify Postgres Installation #########################################
 kubectl exec postgres-sts-0 -it -- /bin/bash
 psql -W sonardb -U admin
 \l
 \q
+
+######################################### ERROR #########################################
+vm.max_map_count [65530] is too low,
+
+Add "vm.max_map_count=262144" in file "/etc/sysctl.conf" and execute "sudo sysctl -p"

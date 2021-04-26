@@ -40,14 +40,14 @@ spec:
           httpGet:
             path: /about
             port: 9000
-          initialDelaySeconds: 120
+          initialDelaySeconds: 180
           periodSeconds: 10
           failureThreshold: 6
         livenessProbe:
           httpGet:
             path: /about
             port: 9000
-          initialDelaySeconds: 120
+          initialDelaySeconds: 180
           periodSeconds: 10
           failureThreshold: 6
         ports:
