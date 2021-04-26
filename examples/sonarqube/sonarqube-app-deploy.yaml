@@ -36,7 +36,7 @@ spec:
           limits:
             cpu: "1000m"
             memory: "2000Mi"
-        readniessProbe:
+        readinessProbe:
           httpGet:
             path: /about
             port: 9000
