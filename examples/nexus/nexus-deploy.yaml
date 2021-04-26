@@ -32,9 +32,9 @@ spec:
             httpGet:
               path: /#browse/welcome
               port: 8081
-            initialDelaySeconds: 120
+            initialDelaySeconds: 60
             periodSeconds: 10
-            failureThreshold: 6
+            failureThreshold: 18
           livenessProbe:
             httpGet:
               path: /#browse/welcome

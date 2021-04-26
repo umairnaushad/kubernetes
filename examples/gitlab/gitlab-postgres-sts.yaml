@@ -34,8 +34,8 @@ spec:
               name: gitlab-postgres-secret
               key: GITLAB_POSTGRES_PASSWORD
         ports:
-        - containerPort: 5432
-          protocol: TCP
+        - name: gitlab-postgres 
+          containerPort: 5432
         volumeMounts:
         - mountPath: /var/lib/postgresql/data
           name: gitlab-postgres
