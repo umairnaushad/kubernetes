@@ -53,13 +53,13 @@ spec:
             postgresql['enable'] = false
             gitlab_rails['db_username'] = "admin"
             gitlab_rails['db_password'] = "admin"
-            gitlab_rails['db_host'] = "gitlab-postgres-pvc"
+            gitlab_rails['db_host'] = "gitlab-postgres-svc"
             gitlab_rails['db_port'] = "5432"
             gitlab_rails['db_database'] = "pg_gitlabdb_production"
             gitlab_rails['db_adapter'] = 'postgresql'
             gitlab_rails['db_encoding'] = 'utf8'
             redis['enable'] = false
-            gitlab_rails['redis_host'] = 'redis-gitlab-svc'
+            gitlab_rails['redis_host'] = 'gitlab-redis-svc'
             gitlab_rails['redis_port'] = '6379'
 #            gitlab_rails['gitlab_shell_ssh_port'] = 30022
 #            external_url 'http://gitlab.example.com:30080'
