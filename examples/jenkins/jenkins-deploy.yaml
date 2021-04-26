@@ -17,7 +17,6 @@ spec:
       containers:
       - name: jenkins
         image: jenkins/jenkins:2.263.2-lts-alpine
-        restartPolicy: Always
         securityContext:
           runAsUser: 0
         env:
