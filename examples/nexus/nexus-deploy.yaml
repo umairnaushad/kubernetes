@@ -32,17 +32,16 @@ spec:
             httpGet:
               path: /
               port: 8081
-              scheme: HTTP
-            initialDelaySeconds: 120
-            periodSeconds: 5
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            failureThreshold: 3
           livenessProbe:
-            failureThreshold: 20
             httpGet:
               path: /
-              port: 8081
-              scheme: HTTP
-            initialDelaySeconds: 60
-            periodSeconds: 5
+              port: 8081TP
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            failureThreshold: 3
           ports:
             - containerPort: 8081
           volumeMounts:
