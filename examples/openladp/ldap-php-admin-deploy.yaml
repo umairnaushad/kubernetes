@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: phpldapadmin-dep
+  name: ldap-php-admin-dep
   namespace: devops #ldap
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: phpldapadmin
+      app: ldap-php-admin
   template:
     metadata:
       labels:
-        app: phpldapadmin
+        app: ldap-php-admin
     spec:
       containers:
       - name: phpldapadmin
