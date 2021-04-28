@@ -14,31 +14,30 @@ spec:
         app: openldap
     spec:
       containers:
-        - name: openldap
-          image: docker.io/bitnami/openldap:2.4.58 #latest
-          imagePullPolicy: "Always"
-          env:
-            - name: LDAP_ADMIN_USERNAME
-              valueFrom:
-                  secretKeyRef:
-                    name: openldap-secret
-                    key: ADMIN_USERNAME
-              value: "admin"
-            - name: LDAP_ADMIN_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: openldap-secret
-                  key: ADMIN_PASSWORD
-            - name: LDAP_USERS
-              valueFrom:
-                secretKeyRef:
-                  name: openldap-secret
-                  key: USER01
-            - name: LDAP_PASSWORDS
-              valueFrom:
-                secretKeyRef:
-                  name: openldap-secret
-                  key: PASSWORD01
-          ports:
-            - name: tcp-ldap
-              containerPort: 1389
+      - name: openldap
+        image: docker.io/bitnami/openldap:2.4.58 #latest
+        imagePullPolicy: "Always"
+        env:
+        - name: LDAP_ADMIN_USERNAME
+          valueFrom:
+              secretKeyRef:
+                name: openldap-secret
+                key: ADMIN_USERNAME
+        - name: LDAP_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: openldap-secret
+              key: ADMIN_PASSWORD
+        - name: LDAP_USERS
+          valueFrom:
+            secretKeyRef:
+              name: openldap-secret
+              key: USER01
+        - name: LDAP_PASSWORDS
+          valueFrom:
+            secretKeyRef:
+              name: openldap-secret
+              key: PASSWORD01
+        ports:
+        - name: tcp-ldap
+          containerPort: 1389
