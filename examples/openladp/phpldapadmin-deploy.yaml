@@ -20,6 +20,6 @@ spec:
         - name: PHPLDAPADMIN_HTTPS
           value: "false"
         - name: PHPLDAPADMIN_LDAP_HOSTS
-          value: ldap-svc
+          value: "ldap-svc"
         ports:
         - containerPort: 80
