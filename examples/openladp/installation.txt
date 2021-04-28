@@ -1,6 +1,6 @@
 https://www.programmersought.com/article/20721689539/
 Login DN: cn=admin,dc=devops,dc=com
-Password: 
+Password: admin
 
 docker run -p 389:389 --name ldap-service --hostname ldap-service --env LDAP_ORGANISATION="ScytaleLabs" --env LDAP_DOMAIN="scytalelabs.com" \
 --env LDAP_ADMIN_PASSWORD="adminPassword" --env LDAP_BASE_DN="dc=scytalelabs,dc=com" --volume /data/slapd/database:/var/lib/ldap \
