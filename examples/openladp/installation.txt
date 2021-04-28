@@ -1,0 +1,8 @@
+https://www.programmersought.com/article/20721689539/
+
+
+docker run -p 389:389 --name ldap-service --hostname ldap-service --env LDAP_ORGANISATION="ScytaleLabs" --env LDAP_DOMAIN="scytalelabs.com" \
+--env LDAP_ADMIN_PASSWORD="adminPassword" --env LDAP_BASE_DN="dc=scytalelabs,dc=com" --volume /data/slapd/database:/var/lib/ldap \
+--volume /data/slapd/config:/etc/ldap/slapd.d --detach osixia/openldap:1.3.0
+
+docker run --name phpldapadmin-service --hostname phpldapadmin-service --link ldap-service:ldap-host --env PHPLDAPADMIN_LDAP_HOSTS=ldap-service --detach osixia/phpldapadmin:0.9.0

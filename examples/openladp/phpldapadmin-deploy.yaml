@@ -14,12 +14,12 @@ spec:
         app: phpldapadmin
     spec:
       containers:
-      - image: osixia/phpldapadmin:0.7.1
-        name: phpldapadmin
+      - name: phpldapadmin
+        image: osixia/phpldapadmin:0.7.1
         env:
         - name: PHPLDAPADMIN_HTTPS
           value: "false"
         - name: PHPLDAPADMIN_LDAP_HOSTS
-          value: ldap-service
+          value: ldap-svc
         ports:
         - containerPort: 80
