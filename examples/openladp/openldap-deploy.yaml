@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: openldap-dep
-  namespace: ldap
+  namespace: openldap
 spec:
   selector:
     matchLabels:
