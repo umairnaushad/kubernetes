@@ -6,8 +6,9 @@ metadata:
 spec:
   selector:
     app: openldap
-  type: ClusterIP
+  type: NodePort #ClusterIP
   ports:
     - name: tcp-ldap
       port: 1389
       targetPort: tcp-ldap
+      nodePort: 32050
