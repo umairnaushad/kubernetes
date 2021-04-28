@@ -11,4 +11,4 @@ spec:
     - name: tcp-ldap
       port: 1389
       targetPort: tcp-ldap
-      nodePort: 32050
+      nodePort: 32100
