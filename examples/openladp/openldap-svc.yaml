@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: openldap-svc
+  name: ldap-svc
   namespace: ldap
 spec:
   selector:
-    app: openldap
-  type: NodePort #ClusterIP
+    app: ldap
+  type: NodePort
   ports:
-    - name: tcp-ldap
-      port: 1389
-      targetPort: tcp-ldap
-      nodePort: 32100
+  - name: http
+    port: 1389
+    targetPort: 1389
+    nodePort: 32060
