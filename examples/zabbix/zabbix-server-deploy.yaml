@@ -47,12 +47,12 @@ spec:
         - name: POSTGRES_USER #MYSQL_USER
           valueFrom:
             secretKeyRef:
-              name: postgres-secret #zabbix-mysql-secret
+              name: zabbix-postgres-secret #zabbix-mysql-secret
               key: POSTGRES_USER #DB_USER
         - name: POSTGRES_PASSWORD #MYSQL_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: postgres-secret #zabbix-mysql-secret
+              name: zabbix-postgres-secret #zabbix-mysql-secret
               key: POSTGRES_PASSWORD #DB_PASS
 #        - name: MYSQL_ROOT_PASSWORD
 #          valueFrom:
@@ -62,10 +62,10 @@ spec:
         - name: POSTGRES_DB #MYSQL_DATABASE
           valueFrom:
             configMapKeyRef:
-              name: postgres-configmap #zabbix-mysql-configmap
+              name: zabbix-postgres-configmap #zabbix-mysql-configmap
               key: POSTGRES_DB #MYSQL_DB
         - name: DB_SERVER_HOST #MYSQL_HOST
-          value: postgres-svc #192.168.247.168 #postgres-svc #zabbix-mysql-svc
+          value: zabbix-postgres-svc #192.168.247.168 #postgres-svc #zabbix-mysql-svc
 #        - name: ZBX_JAVAGATEWAY
 #          value: zabbix-java-gateway-svc
 #        - name: ZBX_JAVAGATEWAY_ENABLE

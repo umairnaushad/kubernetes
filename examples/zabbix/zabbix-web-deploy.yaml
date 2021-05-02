@@ -66,17 +66,17 @@ spec:
           - name: POSTGRES_USER #MYSQL_USER
             valueFrom:
               secretKeyRef:
-                name: postgres-secret
+                name: zabbix-postgres-secret
                 key: POSTGRES_USER
           - name: POSTGRES_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: postgres-secret
+                name: zabbix-postgres-secret
                 key: POSTGRES_PASSWORD
           - name: POSTGRES_DB
             valueFrom:
               configMapKeyRef:
-                name: postgres-configmap
+                name: zabbix-postgres-configmap
                 key: POSTGRES_DB
           volumeMounts:
           - name: zabbix-web-ssl
