@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: ldap
-          image: osixia/openldap:1.2.1
+          image: bitnami/openldap:2.4.58 #osixia/openldap:1.2.1
           env:
             - name: LDAP_LOG_LEVEL
               value: "256"
