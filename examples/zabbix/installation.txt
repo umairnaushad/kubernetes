@@ -6,8 +6,8 @@
 
 ##### VERIFY POSTGRESQL #####
 1) kubectl -n devops-sonarqube exec postgres-sts-0 -it -- /bin/bash
-2) psql -W zabbix -U admin
-   psql --host postgres-svc -W zabbix -U admin
+2) psql -W zabbix_db -U admin
+   psql --host postgres-svc -W zabbix_db -U admin
 3) \l
    \q
 

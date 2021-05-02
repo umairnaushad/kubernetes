@@ -1,7 +1,7 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: postgres-pvc
+  name: zabbix-postgres-pvc
   namespace: zabbix-devops
 spec:
   storageClassName: nfs-sc

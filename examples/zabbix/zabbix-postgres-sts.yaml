@@ -1,13 +1,13 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: postgres-sts
+  name: zabbix-postgres-sts
   namespace: zabbix-devops
   labels:
     app: zabbix-postgres-sts
     tier: db
 spec:
-  serviceName: postgres-svc
+  serviceName: zabbix-postgres-svc
   replicas: 1
   selector:
     matchLabels:
@@ -26,17 +26,17 @@ spec:
         - name: POSTGRES_DB
           valueFrom:
             configMapKeyRef:
-              name: postgres-configmap
+              name: zabbix-postgres-configmap
               key: POSTGRES_DB
         - name: POSTGRES_USER
           valueFrom:
             secretKeyRef:
-              name: postgres-secret
+              name: zabbix-postgres-secret
               key: POSTGRES_USER
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: postgres-secret
+              name: zabbix-postgres-secret
               key: POSTGRES_PASSWORD
         ports:
         - containerPort: 5432
@@ -47,4 +47,4 @@ spec:
       volumes:
       - name: postgres
         persistentVolumeClaim:
-          claimName: postgres-pvc
+          claimName: zabbix-postgres-pvc
