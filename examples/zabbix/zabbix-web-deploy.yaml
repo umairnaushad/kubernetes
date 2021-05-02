@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zabbix-web-dep
+  namespace: zabbix-devops
+  labels:
+    app: zabbix-web-dep
+    tier: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zabbix-web-dep
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: zabbix-web-dep
+        tier: frontend
+    spec:
+      containers:
+        - name: zabbix-web
+          image: zabbix/zabbix-web-nginx-pgsql:alpine-5.2-latest
+          imagePullPolicy: Always
+          resources:
+           limits:
+            cpu: 200m
+            memory: 400Mi
+           requests:
+            cpu: 200m
+            memory: 400Mi
+          ports:
+          - containerPort: 8080
+            name: web-http
+          - containerPort: 8443
+            name: web-https
+          livenessProbe:
+            httpGet:
+              path: /
+              port: web-http
+              scheme: HTTP
+            initialDelaySeconds: 15
+            timeoutSeconds: 2
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 5
+          readinessProbe:
+            httpGet:
+              path: /
+              port: web-http
+              scheme: HTTP
+            initialDelaySeconds: 15
+            timeoutSeconds: 2
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 5
+          env:
+          - name: ZBX_SERVER_NAME
+            value: "Zabbix kubernetes"
+          - name: PHP_TZ
+            value: "Europe/Riga"
+          - name: ZBX_SERVER_HOST
+            value: zabbix-server-svc
+          - name: DB_SERVER_HOST
+            value: postgres-svc
+          - name: POSTGRES_USER #MYSQL_USER
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secret
+                key: POSTGRES_USER
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secret
+                key: POSTGRES_PASSWORD
+          - name: POSTGRES_DB
+            valueFrom:
+              configMapKeyRef:
+                name: postgres-configmap
+                key: POSTGRES_DB
+          volumeMounts:
+          - name: zabbix-web-ssl
+            mountPath: /etc/ssl/nginx
+            readOnly: true
+      volumes:
+      - name: zabbix-web-ssl
+        persistentVolumeClaim:
+          claimName: zabbix-web-pvc

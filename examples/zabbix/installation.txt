@@ -1,0 +1,12 @@
+##### VERIFY MYSQL #####
+
+1) kubectl exec zabbix-mysql-dep-86db6894c8-nbfdz -it -- sh
+2) mysql -uroot -p
+3) show databases;
+
+##### VERIFY POSTGRESQL #####
+1) kubectl -n devops-sonarqube exec postgres-sts-0 -it -- /bin/bash
+2) psql -W zabbix -U admin
+   psql --host postgres-svc -W zabbix -U admin
+3) \l
+   \q

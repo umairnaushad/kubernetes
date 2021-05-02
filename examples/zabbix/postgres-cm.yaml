@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-configmap
+  namespace: zabbix-devops
+data:
+  POSTGRES_DB: zabbix_db

@@ -1,0 +1,106 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zabbix-server-dep
+  labels:
+    app: zabbix-server-dep
+    tier: server
+  namespace: zabbix-devops
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zabbix-server
+      tier: server
+  template:
+    metadata:
+      labels:
+        app: zabbix-server
+        tier: server
+    spec:
+      containers:
+      - name: zabbix-server
+        image: zabbix/zabbix-server-pgsql:alpine-5.2-latest
+        imagePullPolicy: Always
+        resources: 
+          requests:
+            cpu: "500m"
+            memory: "1Gi"
+          limits:
+            cpu: "1000m"
+            memory: "2Gi"
+        ports:
+        - containerPort: 10051
+          protocol: TCP
+          name: zabbix-trapper
+        readinessProbe:
+          tcpSocket:
+            port: zabbix-trapper
+          initialDelaySeconds: 60 #5
+          periodSeconds: 10
+        livenessProbe:
+          tcpSocket:
+            port: zabbix-trapper
+          initialDelaySeconds: 90 #15
+          periodSeconds: 20
+        env:
+        - name: POSTGRES_USER #MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret #zabbix-mysql-secret
+              key: POSTGRES_USER #DB_USER
+        - name: POSTGRES_PASSWORD #MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret #zabbix-mysql-secret
+              key: POSTGRES_PASSWORD #DB_PASS
+#        - name: MYSQL_ROOT_PASSWORD
+#          valueFrom:
+#            secretKeyRef:
+#              name: zabbix-mysql-secret
+#              key: DB_ROOT_PASS
+        - name: POSTGRES_DB #MYSQL_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-configmap #zabbix-mysql-configmap
+              key: POSTGRES_DB #MYSQL_DB
+        - name: DB_SERVER_HOST #MYSQL_HOST
+          value: postgres-svc #192.168.247.168 #postgres-svc #zabbix-mysql-svc
+#        - name: ZBX_JAVAGATEWAY
+#          value: zabbix-java-gateway-svc
+#        - name: ZBX_JAVAGATEWAY_ENABLE
+#          value: "true"
+#        - name: ZBX_STARTJAVAPOLLERS
+#          value: "5"
+        - name: ZBX_ENABLE_SNMP_TRAPS
+          value: "true"
+#        - name: ZBX_STARTPROXYPOLLERS
+#          value: "5"
+#        - name: ZBX_PROXYCONFIGFREQUENCY
+#          value: "60"
+        volumeMounts:
+        - name: zabbix-db-storage
+          mountPath: /var/lib/zabbix/snmptraps/
+          readOnly: true
+      - name: zabbix-snmptraps
+        image: zabbix/zabbix-snmptraps:alpine-5.2-latest
+        imagePullPolicy: Always
+        resources: 
+          requests:
+            cpu: "500m"
+            memory: "0.5Gi"
+          limits:
+            cpu: "1000m"
+            memory: "1Gi"
+        ports:
+        - containerPort: 1162
+          protocol: UDP
+          name: snmp-trap
+        volumeMounts:
+        - name: zabbix-db-storage
+          mountPath: /var/lib/zabbix/snmptraps/
+          readOnly: false
+      volumes:
+      - name: zabbix-db-storage
+        persistentVolumeClaim:
+          claimName: zabbix-server-pvc
