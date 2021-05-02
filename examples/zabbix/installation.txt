@@ -10,3 +10,6 @@
    psql --host postgres-svc -W zabbix -U admin
 3) \l
    \q
+
+##### DEFAULT CREDENTIALS #####
+Admin: zabbix

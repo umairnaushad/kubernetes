@@ -4,4 +4,4 @@ metadata:
   name: postgres-configmap
   namespace: zabbix-devops
 data:
-  POSTGRES_DB: zabbix_db
+  POSTGRES_DB: zabbix
