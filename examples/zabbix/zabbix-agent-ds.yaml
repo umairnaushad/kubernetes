@@ -1,7 +1,7 @@
 apiVersion: apps/v1
-kind: DaemonSet
+kind: Deployment #DaemonSet
 metadata:
-  name: zabbix-agent-ds
+  name: zabbix-agent-dep
   labels:
     app: zabbix-server
     tier: agent
@@ -11,10 +11,6 @@ spec:
    matchLabels:
     app: zabbix-server
     tier: agent
-  updateStrategy:
-   type: RollingUpdate
-   rollingUpdate:
-    maxUnavailable: 1
   template:
     metadata:
       labels:
@@ -38,11 +34,5 @@ spec:
           env:
           - name: ZBX_SERVER_HOST
             value: zabbix-server-svc.zabbix-devops.svc.cluster.local #"zabbix-server"
-          - name: ZBX_PASSIVE_ALLOW
-            value: "true"
-          - name: ZBX_STARTAGENTS
-            value: "3"
-          - name: ZBX_TIMEOUT
-            value: "10"
           securityContext:
             privileged: true
