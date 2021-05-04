@@ -1,0 +1,10 @@
+
+
+gitlab-rake gitlab:check
+gitlab-rake gitlab:gitlab_shell:check
+gitlab-rake gitlab:gitaly:check
+gitlab-rake gitlab:sidekiq:check
+gitlab-rake gitlab:app:check
+
+gitlab-ctl status
+gitlab-ctl reconfigure
