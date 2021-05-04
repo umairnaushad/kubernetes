@@ -93,6 +93,9 @@ spec:
 #            gitlab_rails['gitlab_shell_ssh_port'] = 30022
 #            external_url 'http://gitlab.example.com:30080'
 
+        - name: GITLAB_HOST
+          value: 'http://git.devops.com'
+
         ports:
         - name: http
           containerPort: 80
