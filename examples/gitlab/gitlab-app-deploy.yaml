@@ -87,8 +87,8 @@ spec:
                 'lowercase_usernames' => false,
               }
             }
-#            gitlab_rails['gitlab_ssh_host'] = 'http://git.devops.com'
-#            gitlab_rails['external_url'] = 'http://git.devops.com'
+            gitlab_rails['gitlab_ssh_host'] = 'http://git.devops.com'
+            gitlab_rails['external_url'] = 'http://git.devops.com'
             
 #            gitlab_rails['gitlab_shell_ssh_port'] = 30022
 #            external_url 'http://gitlab.example.com:30080'
