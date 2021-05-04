@@ -42,10 +42,10 @@ spec:
           value: git.devops.com
         - name: GITLAB_PORT
           value: "80"
-        - name: GITLAB_SSH_HOST
-          value: "ssh-git.devops.com"
-        - name: GITLAB_SSH_PORT
-          value: "1022"
+#        - name: GITLAB_SSH_HOST
+#          value: "ssh-git.devops.com"
+#        - name: GITLAB_SSH_PORT
+#          value: "1022"
 
         - name: GITLAB_OMNIBUS_CONFIG
           value: |
@@ -87,7 +87,8 @@ spec:
                 'lowercase_usernames' => false,
               }
             }
-            gitlab_rails['external_url'] = 'http://gitlab.example.com'
+#            gitlab_rails['external_url'] = 'http://gitlab.devops.com'
+            gitlab_rails['gitlab_ssh_host'] = 'http://gitlab.devops.com'
 #            gitlab_rails['gitlab_shell_ssh_port'] = 30022
 #            external_url 'http://gitlab.example.com:30080'
 
