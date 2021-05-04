@@ -60,7 +60,7 @@ spec:
             gitlab_rails['db_adapter'] = 'postgresql'
             gitlab_rails['db_encoding'] = 'utf8'
             redis['enable'] = false
-            gitlab_rails['redis_host'] = 'redis-gitlab-svc'
+            gitlab_rails['redis_host'] = 'gitlab-redis-svc'
             gitlab_rails['redis_port'] = '6379'
             gitlab_rails['ldap_enabled'] = true
             gitlab_rails['ldap_servers'] = {
@@ -71,7 +71,7 @@ spec:
                 'uid' => 'sAMAccountName',
                 'encryption' => 'plain',
                 'bind_dn' => 'CN=admin,OU=ServiceAccount,OU=users,DC=devops,DC=com',
-                'password' => 'Test1',
+                'password' => 'admin',
                 'active_directory' => true,
                 'allow_username_or_email_login' => false,
                 'block_auto_created_users' => false,
