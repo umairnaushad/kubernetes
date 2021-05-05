@@ -49,6 +49,7 @@ spec:
 
         - name: GITLAB_OMNIBUS_CONFIG
           value: |
+            external_url 'http://git.devops.com'
             prometheus_monitoring['enable'] = false
             gitlab_rails['time_zone'] = 'America/New_York'
             postgresql['enable'] = false
@@ -95,8 +96,8 @@ spec:
 #            gitlab_rails['gitlab_shell_ssh_port'] = 30022
 #            external_url 'http://gitlab.example.com:30080'
 
-        - name: EXTERNAL_URL #GITLAB_HOST
-          value: 'http://git.devops.com'
+#        - name: EXTERNAL_URL #GITLAB_HOST
+#          value: 'http://git.devops.com'
 
         ports:
         - name: http
