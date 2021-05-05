@@ -88,14 +88,14 @@ spec:
               }
             }
             gitlab_rails['gitlab_ssh_host'] = 'http://git.devops.com'
-            'external_url' => 'http://git.devops.com'
+#            'external_url' => 'http://git.devops.com'
 
 #            gitlab_rails['external_url'] = 'http://git.devops.com'
             
 #            gitlab_rails['gitlab_shell_ssh_port'] = 30022
 #            external_url 'http://gitlab.example.com:30080'
 
-        - name: GITLAB_HOST
+        - name: EXTERNAL_URL #GITLAB_HOST
           value: 'http://git.devops.com'
 
         ports:
