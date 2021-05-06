@@ -22,10 +22,11 @@ kubectl create ns devops-monitoring
 helm install prometheus prometheus-community/prometheus-operator --namespace devops-monitoring
 
 ######################################### Create Node Port Services ##############################################
-kubectl apply -f monitoring-prometheus.yaml
-kubectl apply -f monitoring-grafana.yaml
+kubectl apply -f monitoring-grafana-svc.yaml
+kubectl apply -f monitoring-prometheus-svc.yaml
+Grafana Credentials: admin\prom-operator
 
 ######################################### Get Grafana Credentials ################################################
-kubectl get secret --namespace prometheus prometheus-grafana -o yaml | grep -i data: -A3
+kubectl get secret --namespace devops-monitoring prometheus-grafana -o yaml | grep -i data: -A3
 echo cHJvbS1vcGVyYXRvcg== | base64 --decode
 echo YWRtaW4= | base64 --decode
